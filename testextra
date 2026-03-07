@@ -1,0 +1,63 @@
+import sys
+from antlr4 import *
+from antlr4.tree.Tree import Tree
+from antlr4.tree.Trees import Trees
+from ExpresionesLexer import ExpresionesLexer
+from ExpresionesParser import ExpresionesParser
+from ExpresionesVisitor import ExpresionesVisitor
+# 1 Clase visitor para evaluar la operacion
+
+class EvaluarVisitor(ExpresionesVisitor):
+    def visitSuma(self, ctx):
+        return self.visit(ctx.expr(0)) + self.visit(ctx.expr(1))
+
+    def visitResta(self, ctx):
+        return self.visit(ctx.expr(0)) - self.visit(ctx.expr(1))
+
+    def visitMultiplicacion(self, ctx):
+        return self.visit(ctx.expr(0)) * self.visit(ctx.expr(1))
+
+    def visitDivision(self, ctx):
+        return self.visit(ctx.expr(0)) / self.visit(ctx.expr(1))
+
+    def visitNumero(self, ctx):
+        return int(ctx.NUMERO().getText())
+    def visitParentesis(self, ctx):
+        return self.visit(ctx.expr())
+    
+    def visitLiteral(self, ctx):
+        return int(ctx.NUMERO().getText())
+    
+    # 2 Funcion para imprimir el arbol de forma visual
+    def print_tree(node, indent="", us_last=True, parser=None):
+        marker = "└─ " if us_last else "├─ "
+        #Obtener el nombre de la regla o el texto del token
+        Name =Trees.getNodeText(node, parser.Names if parser else None);
+        print(f"{indent}{marker}{Name}")
+
+        indent += "   " if us_last else "│  "
+        children = node.getChildren()
+        for i in range(child_count):
+            print_tree(mode.getChild(i), indent, i == (child_count - 1))
+
+# - Ejecución Principal
+#  input _ stream = inputstream ("ingrese la cadena a evaluar")
+#  input _stream = fileStream ("entrada .txt")
+
+input_stream = FileStream(sys.argv[1], Encoding="utf-8")
+Lexer = ExpresionesLexer(input_stream)
+token_stream = CommonTokenStream(Lexer)
+parser = ExpresionesParser(token_stream)
+tree = parser.expr()
+
+print("-- Estructura de Arbol -- ")
+print_tree(tree, parser=parser)
+
+print("\n ...  Resultados de las operaciones...")
+visitor = EvaluarVisitor()
+
+# Iteramos sobre cada expresion encontrada en e arbol raiz
+
+for e in tree.expr():
+    result = visitor.visit(e)
+    print(f"Operacion: {e.getText()} => {resultado}")

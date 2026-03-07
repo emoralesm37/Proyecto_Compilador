@@ -1,0 +1,16 @@
+program {
+    int x;
+    int y;
+    int w;
+    int z;
+
+    x = 10;
+    y = 20;
+    z = x + y * 2;          // z = 50
+
+    if (z > 30 && x != 0) {
+        w = z / 2;
+    } else {
+        w = z - 5;
+    }
+}
