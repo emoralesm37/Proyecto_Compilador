@@ -1,0 +1,5 @@
+__pycache__/
+.antlr/
+venv/
+*.tokens
+*.interp
