@@ -80,7 +80,7 @@ assignment
 exprStatement
 ifStatement
 block
-type
+t_type
 expr
 
 

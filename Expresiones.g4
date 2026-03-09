@@ -19,7 +19,7 @@ statement
 
 // Declaración de variable: int x;
 varDecl
-    : type ID SEMI
+    : t_type ID SEMI
     ;
 
 // Asignación: x = expr;
@@ -43,7 +43,7 @@ block
     ;
 
 // Tipos de datos soportados
-type
+t_type
     : INT_T
     | FLOAT_T
     | BOOL_T

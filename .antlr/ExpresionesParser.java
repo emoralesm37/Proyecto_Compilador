@@ -1,4 +1,4 @@
-// Generated from /home/edwinmm/Proyecto_Compilador/Expresiones.g4 by ANTLR 4.13.1
+// Generated from /home/ln/Proyecto_Final/Expresiones.g4 by ANTLR 4.13.1
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -23,12 +23,12 @@ public class ExpresionesParser extends Parser {
 		WS=33, COMMENT=34;
 	public static final int
 		RULE_program = 0, RULE_statement = 1, RULE_varDecl = 2, RULE_assignment = 3, 
-		RULE_exprStatement = 4, RULE_ifStatement = 5, RULE_block = 6, RULE_type = 7, 
+		RULE_exprStatement = 4, RULE_ifStatement = 5, RULE_block = 6, RULE_t_type = 7, 
 		RULE_expr = 8;
 	private static String[] makeRuleNames() {
 		return new String[] {
 			"program", "statement", "varDecl", "assignment", "exprStatement", "ifStatement", 
-			"block", "type", "expr"
+			"block", "t_type", "expr"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
@@ -232,8 +232,8 @@ public class ExpresionesParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class VarDeclContext extends ParserRuleContext {
-		public TypeContext type() {
-			return getRuleContext(TypeContext.class,0);
+		public T_typeContext t_type() {
+			return getRuleContext(T_typeContext.class,0);
 		}
 		public TerminalNode ID() { return getToken(ExpresionesParser.ID, 0); }
 		public TerminalNode SEMI() { return getToken(ExpresionesParser.SEMI, 0); }
@@ -250,7 +250,7 @@ public class ExpresionesParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(35);
-			type();
+			t_type();
 			setState(36);
 			match(ID);
 			setState(37);
@@ -462,20 +462,20 @@ public class ExpresionesParser extends Parser {
 	}
 
 	@SuppressWarnings("CheckReturnValue")
-	public static class TypeContext extends ParserRuleContext {
+	public static class T_typeContext extends ParserRuleContext {
 		public TerminalNode INT_T() { return getToken(ExpresionesParser.INT_T, 0); }
 		public TerminalNode FLOAT_T() { return getToken(ExpresionesParser.FLOAT_T, 0); }
 		public TerminalNode BOOL_T() { return getToken(ExpresionesParser.BOOL_T, 0); }
 		public TerminalNode STRING_T() { return getToken(ExpresionesParser.STRING_T, 0); }
-		public TypeContext(ParserRuleContext parent, int invokingState) {
+		public T_typeContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_type; }
+		@Override public int getRuleIndex() { return RULE_t_type; }
 	}
 
-	public final TypeContext type() throws RecognitionException {
-		TypeContext _localctx = new TypeContext(_ctx, getState());
-		enterRule(_localctx, 14, RULE_type);
+	public final T_typeContext t_type() throws RecognitionException {
+		T_typeContext _localctx = new T_typeContext(_ctx, getState());
+		enterRule(_localctx, 14, RULE_t_type);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);

@@ -1,6 +1,6 @@
-# Generated from Expresiones.g4 by ANTLR 4.13.2
+# Generated from Expresiones.g4 by ANTLR 4.9.2
 from antlr4 import *
-if "." in __name__:
+if __name__ is not None and "." in __name__:
     from .ExpresionesParser import ExpresionesParser
 else:
     from ExpresionesParser import ExpresionesParser
@@ -44,8 +44,8 @@ class ExpresionesVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by ExpresionesParser#type.
-    def visitType(self, ctx:ExpresionesParser.TypeContext):
+    # Visit a parse tree produced by ExpresionesParser#t_type.
+    def visitT_type(self, ctx:ExpresionesParser.T_typeContext):
         return self.visitChildren(ctx)
 
 

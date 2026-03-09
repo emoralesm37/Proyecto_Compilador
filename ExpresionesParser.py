@@ -1,4 +1,4 @@
-# Generated from Expresiones.g4 by ANTLR 4.13.2
+# Generated from Expresiones.g4 by ANTLR 4.9.2
 # encoding: utf-8
 from antlr4 import *
 from io import StringIO
@@ -9,41 +9,43 @@ else:
 	from typing.io import TextIO
 
 def serializedATN():
-    return [
-        4,1,34,103,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
-        6,2,7,7,7,2,8,7,8,1,0,1,0,1,0,5,0,22,8,0,10,0,12,0,25,9,0,1,0,1,
-        0,1,0,1,1,1,1,1,1,1,1,3,1,34,8,1,1,2,1,2,1,2,1,2,1,3,1,3,1,3,1,3,
-        1,3,1,4,1,4,1,4,1,5,1,5,1,5,1,5,1,5,1,5,1,5,3,5,55,8,5,1,6,1,6,5,
-        6,59,8,6,10,6,12,6,62,9,6,1,6,1,6,1,7,1,7,1,8,1,8,1,8,1,8,1,8,1,
-        8,1,8,1,8,1,8,1,8,1,8,1,8,1,8,3,8,81,8,8,1,8,1,8,1,8,1,8,1,8,1,8,
-        1,8,1,8,1,8,1,8,1,8,1,8,1,8,1,8,1,8,5,8,98,8,8,10,8,12,8,101,9,8,
-        1,8,0,1,16,9,0,2,4,6,8,10,12,14,16,0,4,1,0,4,7,1,0,13,18,1,0,9,10,
-        1,0,11,12,110,0,18,1,0,0,0,2,33,1,0,0,0,4,35,1,0,0,0,6,39,1,0,0,
-        0,8,44,1,0,0,0,10,47,1,0,0,0,12,56,1,0,0,0,14,65,1,0,0,0,16,80,1,
-        0,0,0,18,19,5,3,0,0,19,23,5,25,0,0,20,22,3,2,1,0,21,20,1,0,0,0,22,
-        25,1,0,0,0,23,21,1,0,0,0,23,24,1,0,0,0,24,26,1,0,0,0,25,23,1,0,0,
-        0,26,27,5,26,0,0,27,28,5,0,0,1,28,1,1,0,0,0,29,34,3,4,2,0,30,34,
-        3,6,3,0,31,34,3,10,5,0,32,34,3,8,4,0,33,29,1,0,0,0,33,30,1,0,0,0,
-        33,31,1,0,0,0,33,32,1,0,0,0,34,3,1,0,0,0,35,36,3,14,7,0,36,37,5,
-        32,0,0,37,38,5,29,0,0,38,5,1,0,0,0,39,40,5,32,0,0,40,41,5,22,0,0,
-        41,42,3,16,8,0,42,43,5,29,0,0,43,7,1,0,0,0,44,45,3,16,8,0,45,46,
-        5,29,0,0,46,9,1,0,0,0,47,48,5,1,0,0,48,49,5,23,0,0,49,50,3,16,8,
-        0,50,51,5,24,0,0,51,54,3,12,6,0,52,53,5,2,0,0,53,55,3,12,6,0,54,
-        52,1,0,0,0,54,55,1,0,0,0,55,11,1,0,0,0,56,60,5,25,0,0,57,59,3,2,
-        1,0,58,57,1,0,0,0,59,62,1,0,0,0,60,58,1,0,0,0,60,61,1,0,0,0,61,63,
-        1,0,0,0,62,60,1,0,0,0,63,64,5,26,0,0,64,13,1,0,0,0,65,66,7,0,0,0,
-        66,15,1,0,0,0,67,68,6,8,-1,0,68,69,5,21,0,0,69,81,3,16,8,7,70,71,
-        5,10,0,0,71,81,3,16,8,6,72,73,5,23,0,0,73,74,3,16,8,0,74,75,5,24,
-        0,0,75,81,1,0,0,0,76,81,5,30,0,0,77,81,5,31,0,0,78,81,5,8,0,0,79,
-        81,5,32,0,0,80,67,1,0,0,0,80,70,1,0,0,0,80,72,1,0,0,0,80,76,1,0,
-        0,0,80,77,1,0,0,0,80,78,1,0,0,0,80,79,1,0,0,0,81,99,1,0,0,0,82,83,
-        10,12,0,0,83,84,5,20,0,0,84,98,3,16,8,13,85,86,10,11,0,0,86,87,5,
-        19,0,0,87,98,3,16,8,12,88,89,10,10,0,0,89,90,7,1,0,0,90,98,3,16,
-        8,11,91,92,10,9,0,0,92,93,7,2,0,0,93,98,3,16,8,10,94,95,10,8,0,0,
-        95,96,7,3,0,0,96,98,3,16,8,9,97,82,1,0,0,0,97,85,1,0,0,0,97,88,1,
-        0,0,0,97,91,1,0,0,0,97,94,1,0,0,0,98,101,1,0,0,0,99,97,1,0,0,0,99,
-        100,1,0,0,0,100,17,1,0,0,0,101,99,1,0,0,0,7,23,33,54,60,80,97,99
-    ]
+    with StringIO() as buf:
+        buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3$")
+        buf.write("i\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b")
+        buf.write("\t\b\4\t\t\t\4\n\t\n\3\2\3\2\3\2\7\2\30\n\2\f\2\16\2\33")
+        buf.write("\13\2\3\2\3\2\3\2\3\3\3\3\3\3\3\3\5\3$\n\3\3\4\3\4\3\4")
+        buf.write("\3\4\3\5\3\5\3\5\3\5\3\5\3\6\3\6\3\6\3\7\3\7\3\7\3\7\3")
+        buf.write("\7\3\7\3\7\5\79\n\7\3\b\3\b\7\b=\n\b\f\b\16\b@\13\b\3")
+        buf.write("\b\3\b\3\t\3\t\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n")
+        buf.write("\3\n\3\n\3\n\5\nS\n\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n")
+        buf.write("\3\n\3\n\3\n\3\n\3\n\3\n\3\n\7\nd\n\n\f\n\16\ng\13\n\3")
+        buf.write("\n\2\3\22\13\2\4\6\b\n\f\16\20\22\2\6\3\2\6\t\3\2\17\24")
+        buf.write("\3\2\13\f\3\2\r\16\2p\2\24\3\2\2\2\4#\3\2\2\2\6%\3\2\2")
+        buf.write("\2\b)\3\2\2\2\n.\3\2\2\2\f\61\3\2\2\2\16:\3\2\2\2\20C")
+        buf.write("\3\2\2\2\22R\3\2\2\2\24\25\7\5\2\2\25\31\7\33\2\2\26\30")
+        buf.write("\5\4\3\2\27\26\3\2\2\2\30\33\3\2\2\2\31\27\3\2\2\2\31")
+        buf.write("\32\3\2\2\2\32\34\3\2\2\2\33\31\3\2\2\2\34\35\7\34\2\2")
+        buf.write("\35\36\7\2\2\3\36\3\3\2\2\2\37$\5\6\4\2 $\5\b\5\2!$\5")
+        buf.write("\f\7\2\"$\5\n\6\2#\37\3\2\2\2# \3\2\2\2#!\3\2\2\2#\"\3")
+        buf.write("\2\2\2$\5\3\2\2\2%&\5\20\t\2&\'\7\"\2\2\'(\7\37\2\2(\7")
+        buf.write("\3\2\2\2)*\7\"\2\2*+\7\30\2\2+,\5\22\n\2,-\7\37\2\2-\t")
+        buf.write("\3\2\2\2./\5\22\n\2/\60\7\37\2\2\60\13\3\2\2\2\61\62\7")
+        buf.write("\3\2\2\62\63\7\31\2\2\63\64\5\22\n\2\64\65\7\32\2\2\65")
+        buf.write("8\5\16\b\2\66\67\7\4\2\2\679\5\16\b\28\66\3\2\2\289\3")
+        buf.write("\2\2\29\r\3\2\2\2:>\7\33\2\2;=\5\4\3\2<;\3\2\2\2=@\3\2")
+        buf.write("\2\2><\3\2\2\2>?\3\2\2\2?A\3\2\2\2@>\3\2\2\2AB\7\34\2")
+        buf.write("\2B\17\3\2\2\2CD\t\2\2\2D\21\3\2\2\2EF\b\n\1\2FG\7\27")
+        buf.write("\2\2GS\5\22\n\tHI\7\f\2\2IS\5\22\n\bJK\7\31\2\2KL\5\22")
+        buf.write("\n\2LM\7\32\2\2MS\3\2\2\2NS\7 \2\2OS\7!\2\2PS\7\n\2\2")
+        buf.write("QS\7\"\2\2RE\3\2\2\2RH\3\2\2\2RJ\3\2\2\2RN\3\2\2\2RO\3")
+        buf.write("\2\2\2RP\3\2\2\2RQ\3\2\2\2Se\3\2\2\2TU\f\16\2\2UV\7\26")
+        buf.write("\2\2Vd\5\22\n\17WX\f\r\2\2XY\7\25\2\2Yd\5\22\n\16Z[\f")
+        buf.write("\f\2\2[\\\t\3\2\2\\d\5\22\n\r]^\f\13\2\2^_\t\4\2\2_d\5")
+        buf.write("\22\n\f`a\f\n\2\2ab\t\5\2\2bd\5\22\n\13cT\3\2\2\2cW\3")
+        buf.write("\2\2\2cZ\3\2\2\2c]\3\2\2\2c`\3\2\2\2dg\3\2\2\2ec\3\2\2")
+        buf.write("\2ef\3\2\2\2f\23\3\2\2\2ge\3\2\2\2\t\31#8>Rce")
+        return buf.getvalue()
+
 
 class ExpresionesParser ( Parser ):
 
@@ -75,11 +77,11 @@ class ExpresionesParser ( Parser ):
     RULE_exprStatement = 4
     RULE_ifStatement = 5
     RULE_block = 6
-    RULE_type = 7
+    RULE_t_type = 7
     RULE_expr = 8
 
     ruleNames =  [ "program", "statement", "varDecl", "assignment", "exprStatement", 
-                   "ifStatement", "block", "type", "expr" ]
+                   "ifStatement", "block", "t_type", "expr" ]
 
     EOF = Token.EOF
     IF=1
@@ -119,10 +121,9 @@ class ExpresionesParser ( Parser ):
 
     def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
         super().__init__(input, output)
-        self.checkVersion("4.13.2")
+        self.checkVersion("4.9.2")
         self._interp = ParserATNSimulator(self, self.atn, self.decisionsToDFA, self.sharedContextCache)
         self._predicates = None
-
 
 
 
@@ -155,6 +156,14 @@ class ExpresionesParser ( Parser ):
         def getRuleIndex(self):
             return ExpresionesParser.RULE_program
 
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterProgram" ):
+                listener.enterProgram(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitProgram" ):
+                listener.exitProgram(self)
+
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitProgram" ):
                 return visitor.visitProgram(self)
@@ -178,7 +187,7 @@ class ExpresionesParser ( Parser ):
             self.state = 23
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 7526680050) != 0):
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ExpresionesParser.IF) | (1 << ExpresionesParser.INT_T) | (1 << ExpresionesParser.FLOAT_T) | (1 << ExpresionesParser.BOOL_T) | (1 << ExpresionesParser.STRING_T) | (1 << ExpresionesParser.BOOL_LIT) | (1 << ExpresionesParser.MINUS) | (1 << ExpresionesParser.NOT) | (1 << ExpresionesParser.LPAREN) | (1 << ExpresionesParser.FLOAT_LIT) | (1 << ExpresionesParser.NUM) | (1 << ExpresionesParser.ID))) != 0):
                 self.state = 20
                 self.statement()
                 self.state = 25
@@ -196,7 +205,6 @@ class ExpresionesParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
-
 
     class StatementContext(ParserRuleContext):
         __slots__ = 'parser'
@@ -223,6 +231,14 @@ class ExpresionesParser ( Parser ):
 
         def getRuleIndex(self):
             return ExpresionesParser.RULE_statement
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterStatement" ):
+                listener.enterStatement(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitStatement" ):
+                listener.exitStatement(self)
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitStatement" ):
@@ -274,7 +290,6 @@ class ExpresionesParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class VarDeclContext(ParserRuleContext):
         __slots__ = 'parser'
 
@@ -282,8 +297,8 @@ class ExpresionesParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def type_(self):
-            return self.getTypedRuleContext(ExpresionesParser.TypeContext,0)
+        def t_type(self):
+            return self.getTypedRuleContext(ExpresionesParser.T_typeContext,0)
 
 
         def ID(self):
@@ -294,6 +309,14 @@ class ExpresionesParser ( Parser ):
 
         def getRuleIndex(self):
             return ExpresionesParser.RULE_varDecl
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterVarDecl" ):
+                listener.enterVarDecl(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitVarDecl" ):
+                listener.exitVarDecl(self)
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitVarDecl" ):
@@ -311,7 +334,7 @@ class ExpresionesParser ( Parser ):
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 35
-            self.type_()
+            self.t_type()
             self.state = 36
             self.match(ExpresionesParser.ID)
             self.state = 37
@@ -323,7 +346,6 @@ class ExpresionesParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
-
 
     class AssignmentContext(ParserRuleContext):
         __slots__ = 'parser'
@@ -347,6 +369,14 @@ class ExpresionesParser ( Parser ):
 
         def getRuleIndex(self):
             return ExpresionesParser.RULE_assignment
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterAssignment" ):
+                listener.enterAssignment(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitAssignment" ):
+                listener.exitAssignment(self)
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitAssignment" ):
@@ -379,7 +409,6 @@ class ExpresionesParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class ExprStatementContext(ParserRuleContext):
         __slots__ = 'parser'
 
@@ -396,6 +425,14 @@ class ExpresionesParser ( Parser ):
 
         def getRuleIndex(self):
             return ExpresionesParser.RULE_exprStatement
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterExprStatement" ):
+                listener.enterExprStatement(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitExprStatement" ):
+                listener.exitExprStatement(self)
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitExprStatement" ):
@@ -423,7 +460,6 @@ class ExpresionesParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
-
 
     class IfStatementContext(ParserRuleContext):
         __slots__ = 'parser'
@@ -458,6 +494,14 @@ class ExpresionesParser ( Parser ):
         def getRuleIndex(self):
             return ExpresionesParser.RULE_ifStatement
 
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterIfStatement" ):
+                listener.enterIfStatement(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitIfStatement" ):
+                listener.exitIfStatement(self)
+
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitIfStatement" ):
                 return visitor.visitIfStatement(self)
@@ -487,7 +531,7 @@ class ExpresionesParser ( Parser ):
             self.state = 54
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if _la==2:
+            if _la==ExpresionesParser.ELSE:
                 self.state = 52
                 self.match(ExpresionesParser.ELSE)
                 self.state = 53
@@ -501,7 +545,6 @@ class ExpresionesParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
-
 
     class BlockContext(ParserRuleContext):
         __slots__ = 'parser'
@@ -526,6 +569,14 @@ class ExpresionesParser ( Parser ):
         def getRuleIndex(self):
             return ExpresionesParser.RULE_block
 
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterBlock" ):
+                listener.enterBlock(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitBlock" ):
+                listener.exitBlock(self)
+
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitBlock" ):
                 return visitor.visitBlock(self)
@@ -547,7 +598,7 @@ class ExpresionesParser ( Parser ):
             self.state = 60
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 7526680050) != 0):
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ExpresionesParser.IF) | (1 << ExpresionesParser.INT_T) | (1 << ExpresionesParser.FLOAT_T) | (1 << ExpresionesParser.BOOL_T) | (1 << ExpresionesParser.STRING_T) | (1 << ExpresionesParser.BOOL_LIT) | (1 << ExpresionesParser.MINUS) | (1 << ExpresionesParser.NOT) | (1 << ExpresionesParser.LPAREN) | (1 << ExpresionesParser.FLOAT_LIT) | (1 << ExpresionesParser.NUM) | (1 << ExpresionesParser.ID))) != 0):
                 self.state = 57
                 self.statement()
                 self.state = 62
@@ -564,8 +615,7 @@ class ExpresionesParser ( Parser ):
             self.exitRule()
         return localctx
 
-
-    class TypeContext(ParserRuleContext):
+    class T_typeContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -585,27 +635,35 @@ class ExpresionesParser ( Parser ):
             return self.getToken(ExpresionesParser.STRING_T, 0)
 
         def getRuleIndex(self):
-            return ExpresionesParser.RULE_type
+            return ExpresionesParser.RULE_t_type
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterT_type" ):
+                listener.enterT_type(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitT_type" ):
+                listener.exitT_type(self)
 
         def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitType" ):
-                return visitor.visitType(self)
+            if hasattr( visitor, "visitT_type" ):
+                return visitor.visitT_type(self)
             else:
                 return visitor.visitChildren(self)
 
 
 
 
-    def type_(self):
+    def t_type(self):
 
-        localctx = ExpresionesParser.TypeContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 14, self.RULE_type)
+        localctx = ExpresionesParser.T_typeContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 14, self.RULE_t_type)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 65
             _la = self._input.LA(1)
-            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 240) != 0)):
+            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ExpresionesParser.INT_T) | (1 << ExpresionesParser.FLOAT_T) | (1 << ExpresionesParser.BOOL_T) | (1 << ExpresionesParser.STRING_T))) != 0)):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -617,7 +675,6 @@ class ExpresionesParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
-
 
     class ExprContext(ParserRuleContext):
         __slots__ = 'parser'
@@ -644,6 +701,14 @@ class ExpresionesParser ( Parser ):
         def FLOAT_LIT(self):
             return self.getToken(ExpresionesParser.FLOAT_LIT, 0)
 
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterFloatExpr" ):
+                listener.enterFloatExpr(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitFloatExpr" ):
+                listener.exitFloatExpr(self)
+
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitFloatExpr" ):
                 return visitor.visitFloatExpr(self)
@@ -662,6 +727,14 @@ class ExpresionesParser ( Parser ):
         def expr(self):
             return self.getTypedRuleContext(ExpresionesParser.ExprContext,0)
 
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterNotExpr" ):
+                listener.enterNotExpr(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitNotExpr" ):
+                listener.exitNotExpr(self)
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitNotExpr" ):
@@ -687,6 +760,14 @@ class ExpresionesParser ( Parser ):
         def MINUS(self):
             return self.getToken(ExpresionesParser.MINUS, 0)
 
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterAddExpr" ):
+                listener.enterAddExpr(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitAddExpr" ):
+                listener.exitAddExpr(self)
+
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitAddExpr" ):
                 return visitor.visitAddExpr(self)
@@ -705,6 +786,14 @@ class ExpresionesParser ( Parser ):
         def expr(self):
             return self.getTypedRuleContext(ExpresionesParser.ExprContext,0)
 
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterNegExpr" ):
+                listener.enterNegExpr(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitNegExpr" ):
+                listener.exitNegExpr(self)
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitNegExpr" ):
@@ -730,6 +819,14 @@ class ExpresionesParser ( Parser ):
         def DIV(self):
             return self.getToken(ExpresionesParser.DIV, 0)
 
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterMulExpr" ):
+                listener.enterMulExpr(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitMulExpr" ):
+                listener.exitMulExpr(self)
+
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitMulExpr" ):
                 return visitor.visitMulExpr(self)
@@ -752,6 +849,14 @@ class ExpresionesParser ( Parser ):
         def OR(self):
             return self.getToken(ExpresionesParser.OR, 0)
 
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterOrExpr" ):
+                listener.enterOrExpr(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitOrExpr" ):
+                listener.exitOrExpr(self)
+
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitOrExpr" ):
                 return visitor.visitOrExpr(self)
@@ -767,6 +872,14 @@ class ExpresionesParser ( Parser ):
 
         def BOOL_LIT(self):
             return self.getToken(ExpresionesParser.BOOL_LIT, 0)
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterBoolExpr" ):
+                listener.enterBoolExpr(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitBoolExpr" ):
+                listener.exitBoolExpr(self)
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitBoolExpr" ):
@@ -800,6 +913,14 @@ class ExpresionesParser ( Parser ):
         def GEQ(self):
             return self.getToken(ExpresionesParser.GEQ, 0)
 
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterRelExpr" ):
+                listener.enterRelExpr(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitRelExpr" ):
+                listener.exitRelExpr(self)
+
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitRelExpr" ):
                 return visitor.visitRelExpr(self)
@@ -821,6 +942,14 @@ class ExpresionesParser ( Parser ):
         def RPAREN(self):
             return self.getToken(ExpresionesParser.RPAREN, 0)
 
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterParenExpr" ):
+                listener.enterParenExpr(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitParenExpr" ):
+                listener.exitParenExpr(self)
+
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitParenExpr" ):
                 return visitor.visitParenExpr(self)
@@ -837,6 +966,14 @@ class ExpresionesParser ( Parser ):
         def NUM(self):
             return self.getToken(ExpresionesParser.NUM, 0)
 
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterNumExpr" ):
+                listener.enterNumExpr(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitNumExpr" ):
+                listener.exitNumExpr(self)
+
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitNumExpr" ):
                 return visitor.visitNumExpr(self)
@@ -852,6 +989,14 @@ class ExpresionesParser ( Parser ):
 
         def ID(self):
             return self.getToken(ExpresionesParser.ID, 0)
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterIdExpr" ):
+                listener.enterIdExpr(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitIdExpr" ):
+                listener.exitIdExpr(self)
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitIdExpr" ):
@@ -875,6 +1020,14 @@ class ExpresionesParser ( Parser ):
         def AND(self):
             return self.getToken(ExpresionesParser.AND, 0)
 
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterAndExpr" ):
+                listener.enterAndExpr(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitAndExpr" ):
+                listener.exitAndExpr(self)
+
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitAndExpr" ):
                 return visitor.visitAndExpr(self)
@@ -896,7 +1049,7 @@ class ExpresionesParser ( Parser ):
             self.state = 80
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [21]:
+            if token in [ExpresionesParser.NOT]:
                 localctx = ExpresionesParser.NotExprContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
@@ -906,7 +1059,7 @@ class ExpresionesParser ( Parser ):
                 self.state = 69
                 self.expr(7)
                 pass
-            elif token in [10]:
+            elif token in [ExpresionesParser.MINUS]:
                 localctx = ExpresionesParser.NegExprContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
@@ -915,7 +1068,7 @@ class ExpresionesParser ( Parser ):
                 self.state = 71
                 self.expr(6)
                 pass
-            elif token in [23]:
+            elif token in [ExpresionesParser.LPAREN]:
                 localctx = ExpresionesParser.ParenExprContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
@@ -926,28 +1079,28 @@ class ExpresionesParser ( Parser ):
                 self.state = 74
                 self.match(ExpresionesParser.RPAREN)
                 pass
-            elif token in [30]:
+            elif token in [ExpresionesParser.FLOAT_LIT]:
                 localctx = ExpresionesParser.FloatExprContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
                 self.state = 76
                 self.match(ExpresionesParser.FLOAT_LIT)
                 pass
-            elif token in [31]:
+            elif token in [ExpresionesParser.NUM]:
                 localctx = ExpresionesParser.NumExprContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
                 self.state = 77
                 self.match(ExpresionesParser.NUM)
                 pass
-            elif token in [8]:
+            elif token in [ExpresionesParser.BOOL_LIT]:
                 localctx = ExpresionesParser.BoolExprContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
                 self.state = 78
                 self.match(ExpresionesParser.BOOL_LIT)
                 pass
-            elif token in [32]:
+            elif token in [ExpresionesParser.ID]:
                 localctx = ExpresionesParser.IdExprContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
@@ -1004,7 +1157,7 @@ class ExpresionesParser ( Parser ):
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 10)")
                         self.state = 89
                         _la = self._input.LA(1)
-                        if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 516096) != 0)):
+                        if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ExpresionesParser.EQ) | (1 << ExpresionesParser.NEQ) | (1 << ExpresionesParser.LEQ) | (1 << ExpresionesParser.GEQ) | (1 << ExpresionesParser.LT) | (1 << ExpresionesParser.GT))) != 0)):
                             self._errHandler.recoverInline(self)
                         else:
                             self._errHandler.reportMatch(self)
@@ -1022,7 +1175,7 @@ class ExpresionesParser ( Parser ):
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 9)")
                         self.state = 92
                         _la = self._input.LA(1)
-                        if not(_la==9 or _la==10):
+                        if not(_la==ExpresionesParser.PLUS or _la==ExpresionesParser.MINUS):
                             self._errHandler.recoverInline(self)
                         else:
                             self._errHandler.reportMatch(self)
@@ -1040,7 +1193,7 @@ class ExpresionesParser ( Parser ):
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 8)")
                         self.state = 95
                         _la = self._input.LA(1)
-                        if not(_la==11 or _la==12):
+                        if not(_la==ExpresionesParser.TIMES or _la==ExpresionesParser.DIV):
                             self._errHandler.recoverInline(self)
                         else:
                             self._errHandler.reportMatch(self)
