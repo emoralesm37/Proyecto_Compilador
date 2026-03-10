@@ -54,20 +54,20 @@ type
 // EXPRESIONES — con precedencia correcta (menor a mayor)
 // ============================================================
 expr
-    // Nivel 1 — OR lógico (menor precedencia)
-    : expr OR expr                                      # orExpr
-
-    // Nivel 2 — AND lógico
-    | expr AND expr                                     # andExpr
-
-    // Nivel 3 — Operadores relacionales
-    | expr (EQ | NEQ | LT | GT | LEQ | GEQ) expr       # relExpr
+    // Nivel 5 — Multiplicación y División
+    : expr (TIMES | DIV) expr                           # mulExpr
 
     // Nivel 4 — Suma y Resta
     | expr (PLUS | MINUS) expr                          # addExpr
 
-    // Nivel 5 — Multiplicación y División
-    | expr (TIMES | DIV) expr                           # mulExpr
+    // Nivel 3 — Operadores relacionales
+    | expr (EQ | NEQ | LT | GT | LEQ | GEQ) expr       # relExpr
+
+    // Nivel 2 — AND lógico
+    | expr AND expr                                     # andExpr
+
+    // Nivel 1 — OR lógico (menor precedencia)
+    | expr OR expr                                      # orExpr
 
     // Nivel 6 — NOT lógico (unario)
     | NOT expr                                          # notExpr
@@ -127,7 +127,7 @@ NOT     : '!'  ;
 // ============================================================
 // TOKENS — Símbolos de agrupación y puntuación
 // ============================================================
-ASSIGN   : '='  ;
+ASSIGN   : '='  ;       // Operador de asignación
 LPAREN   : '('  ;
 RPAREN   : ')'  ;
 LBRACE   : '{'  ;

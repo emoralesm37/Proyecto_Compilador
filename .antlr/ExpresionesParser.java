@@ -731,24 +731,40 @@ public class ExpresionesParser extends Parser {
 					switch ( getInterpreter().adaptivePredict(_input,5,_ctx) ) {
 					case 1:
 						{
-						_localctx = new OrExprContext(new ExprContext(_parentctx, _parentState));
+						_localctx = new MulExprContext(new ExprContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
 						setState(82);
 						if (!(precpred(_ctx, 12))) throw new FailedPredicateException(this, "precpred(_ctx, 12)");
 						setState(83);
-						match(OR);
+						_la = _input.LA(1);
+						if ( !(_la==TIMES || _la==DIV) ) {
+						_errHandler.recoverInline(this);
+						}
+						else {
+							if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+							_errHandler.reportMatch(this);
+							consume();
+						}
 						setState(84);
 						expr(13);
 						}
 						break;
 					case 2:
 						{
-						_localctx = new AndExprContext(new ExprContext(_parentctx, _parentState));
+						_localctx = new AddExprContext(new ExprContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
 						setState(85);
 						if (!(precpred(_ctx, 11))) throw new FailedPredicateException(this, "precpred(_ctx, 11)");
 						setState(86);
-						match(AND);
+						_la = _input.LA(1);
+						if ( !(_la==PLUS || _la==MINUS) ) {
+						_errHandler.recoverInline(this);
+						}
+						else {
+							if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+							_errHandler.reportMatch(this);
+							consume();
+						}
 						setState(87);
 						expr(12);
 						}
@@ -775,40 +791,24 @@ public class ExpresionesParser extends Parser {
 						break;
 					case 4:
 						{
-						_localctx = new AddExprContext(new ExprContext(_parentctx, _parentState));
+						_localctx = new AndExprContext(new ExprContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
 						setState(91);
 						if (!(precpred(_ctx, 9))) throw new FailedPredicateException(this, "precpred(_ctx, 9)");
 						setState(92);
-						_la = _input.LA(1);
-						if ( !(_la==PLUS || _la==MINUS) ) {
-						_errHandler.recoverInline(this);
-						}
-						else {
-							if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
-							_errHandler.reportMatch(this);
-							consume();
-						}
+						match(AND);
 						setState(93);
 						expr(10);
 						}
 						break;
 					case 5:
 						{
-						_localctx = new MulExprContext(new ExprContext(_parentctx, _parentState));
+						_localctx = new OrExprContext(new ExprContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
 						setState(94);
 						if (!(precpred(_ctx, 8))) throw new FailedPredicateException(this, "precpred(_ctx, 8)");
 						setState(95);
-						_la = _input.LA(1);
-						if ( !(_la==TIMES || _la==DIV) ) {
-						_errHandler.recoverInline(this);
-						}
-						else {
-							if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
-							_errHandler.reportMatch(this);
-							consume();
-						}
+						match(OR);
 						setState(96);
 						expr(9);
 						}
@@ -873,7 +873,7 @@ public class ExpresionesParser extends Parser {
 		"\b\u0001\b\u0001\b\u0001\b\u0001\b\u0001\b\u0001\b\u0001\b\u0001\b\u0001"+
 		"\b\u0001\b\u0001\b\u0001\b\u0005\bb\b\b\n\b\f\be\t\b\u0001\b\u0000\u0001"+
 		"\u0010\t\u0000\u0002\u0004\u0006\b\n\f\u000e\u0010\u0000\u0004\u0001\u0000"+
-		"\u0004\u0007\u0001\u0000\r\u0012\u0001\u0000\t\n\u0001\u0000\u000b\fn"+
+		"\u0004\u0007\u0001\u0000\u000b\f\u0001\u0000\t\n\u0001\u0000\r\u0012n"+
 		"\u0000\u0012\u0001\u0000\u0000\u0000\u0002!\u0001\u0000\u0000\u0000\u0004"+
 		"#\u0001\u0000\u0000\u0000\u0006\'\u0001\u0000\u0000\u0000\b,\u0001\u0000"+
 		"\u0000\u0000\n/\u0001\u0000\u0000\u0000\f8\u0001\u0000\u0000\u0000\u000e"+
@@ -907,11 +907,11 @@ public class ExpresionesParser extends Parser {
 		"\u0000\u0000PC\u0001\u0000\u0000\u0000PF\u0001\u0000\u0000\u0000PH\u0001"+
 		"\u0000\u0000\u0000PL\u0001\u0000\u0000\u0000PM\u0001\u0000\u0000\u0000"+
 		"PN\u0001\u0000\u0000\u0000PO\u0001\u0000\u0000\u0000Qc\u0001\u0000\u0000"+
-		"\u0000RS\n\f\u0000\u0000ST\u0005\u0014\u0000\u0000Tb\u0003\u0010\b\rU"+
-		"V\n\u000b\u0000\u0000VW\u0005\u0013\u0000\u0000Wb\u0003\u0010\b\fXY\n"+
-		"\n\u0000\u0000YZ\u0007\u0001\u0000\u0000Zb\u0003\u0010\b\u000b[\\\n\t"+
-		"\u0000\u0000\\]\u0007\u0002\u0000\u0000]b\u0003\u0010\b\n^_\n\b\u0000"+
-		"\u0000_`\u0007\u0003\u0000\u0000`b\u0003\u0010\b\taR\u0001\u0000\u0000"+
+		"\u0000RS\n\f\u0000\u0000ST\u0007\u0001\u0000\u0000Tb\u0003\u0010\b\rU"+
+		"V\n\u000b\u0000\u0000VW\u0007\u0002\u0000\u0000Wb\u0003\u0010\b\fXY\n"+
+		"\n\u0000\u0000YZ\u0007\u0003\u0000\u0000Zb\u0003\u0010\b\u000b[\\\n\t"+
+		"\u0000\u0000\\]\u0005\u0013\u0000\u0000]b\u0003\u0010\b\n^_\n\b\u0000"+
+		"\u0000_`\u0005\u0014\u0000\u0000`b\u0003\u0010\b\taR\u0001\u0000\u0000"+
 		"\u0000aU\u0001\u0000\u0000\u0000aX\u0001\u0000\u0000\u0000a[\u0001\u0000"+
 		"\u0000\u0000a^\u0001\u0000\u0000\u0000be\u0001\u0000\u0000\u0000ca\u0001"+
 		"\u0000\u0000\u0000cd\u0001\u0000\u0000\u0000d\u0011\u0001\u0000\u0000"+
