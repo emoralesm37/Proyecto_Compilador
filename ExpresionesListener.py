@@ -17,6 +17,15 @@ class ExpresionesListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by ExpresionesParser#name.
+    def enterName(self, ctx:ExpresionesParser.NameContext):
+        pass
+
+    # Exit a parse tree produced by ExpresionesParser#name.
+    def exitName(self, ctx:ExpresionesParser.NameContext):
+        pass
+
+
     # Enter a parse tree produced by ExpresionesParser#statement.
     def enterStatement(self, ctx:ExpresionesParser.StatementContext):
         pass

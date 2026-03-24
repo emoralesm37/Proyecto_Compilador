@@ -14,6 +14,11 @@ class ExpresionesVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by ExpresionesParser#name.
+    def visitName(self, ctx:ExpresionesParser.NameContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by ExpresionesParser#statement.
     def visitStatement(self, ctx:ExpresionesParser.StatementContext):
         return self.visitChildren(ctx)

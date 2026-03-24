@@ -1,5 +1,4 @@
 # ================================================================
-# el archivo se llama interprete.py
 # Punto de entrada del intérprete para Expresiones
 # Uso: python3 test.py <entrada>
 # ================================================================

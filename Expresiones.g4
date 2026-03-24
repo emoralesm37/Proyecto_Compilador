@@ -4,9 +4,12 @@ grammar Expresiones;
 // REGLA INICIAL DEL PROGRAMA
 // ============================================================
 program
-    : PROGRAM LBRACE statement* RBRACE EOF
+    : PROGRAM name+ LBRACE statement* RBRACE EOF
     ;
 
+name
+    :ID 
+    ;
 // ============================================================
 // SENTENCIAS (statements)
 // ============================================================
@@ -51,34 +54,34 @@ type
     ;
 
 // ============================================================
-// EXPRESIONES — con precedencia correcta (menor a mayor)
+// EXPRESIONES — con precedencia correcta (mayor a menor)
 // ============================================================
 expr
-    // Nivel 5 — Multiplicación y División
+    // Nivel 9 — Multiplicación y División
     : expr (TIMES | DIV) expr                           # mulExpr
 
-    // Nivel 4 — Suma y Resta
+    // Nivel 8 — Suma y Resta
     | expr (PLUS | MINUS) expr                          # addExpr
 
-    // Nivel 3 — Operadores relacionales
+    // Nivel 7 — Operadores relacionales
     | expr (EQ | NEQ | LT | GT | LEQ | GEQ) expr       # relExpr
 
-    // Nivel 2 — AND lógico
+    // Nivel 6 — AND lógico
     | expr AND expr                                     # andExpr
 
-    // Nivel 1 — OR lógico (menor precedencia)
+    // Nivel 5 — OR lógico (menor precedencia)
     | expr OR expr                                      # orExpr
 
-    // Nivel 6 — NOT lógico (unario)
+    // Nivel 4 — NOT lógico (unario)
     | NOT expr                                          # notExpr
 
-    // Nivel 7 — Negación aritmética (unario)
+    // Nivel 3 — Negación aritmética (unario)
     | MINUS expr                                        # negExpr
 
-    // Nivel 8 — Agrupación con paréntesis
+    // Nivel 2 — Agrupación con paréntesis
     | LPAREN expr RPAREN                                # parenExpr
 
-    // Nivel 9 — Literales y variables (mayor precedencia)
+    // Nivel 1 — Literales y variables (mayor precedencia)
     | FLOAT_LIT                                         # floatExpr
     | NUM                                               # numExpr
     | BOOL_LIT                                          # boolExpr
