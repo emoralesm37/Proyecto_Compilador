@@ -14,8 +14,33 @@ class ExpresionesVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by ExpresionesParser#name.
-    def visitName(self, ctx:ExpresionesParser.NameContext):
+    # Visit a parse tree produced by ExpresionesParser#topFuncDecl.
+    def visitTopFuncDecl(self, ctx:ExpresionesParser.TopFuncDeclContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by ExpresionesParser#topStatement.
+    def visitTopStatement(self, ctx:ExpresionesParser.TopStatementContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by ExpresionesParser#funcDecl.
+    def visitFuncDecl(self, ctx:ExpresionesParser.FuncDeclContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by ExpresionesParser#returnType.
+    def visitReturnType(self, ctx:ExpresionesParser.ReturnTypeContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by ExpresionesParser#paramList.
+    def visitParamList(self, ctx:ExpresionesParser.ParamListContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by ExpresionesParser#param.
+    def visitParam(self, ctx:ExpresionesParser.ParamContext):
         return self.visitChildren(ctx)
 
 
@@ -34,13 +59,48 @@ class ExpresionesVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by ExpresionesParser#exprStatement.
-    def visitExprStatement(self, ctx:ExpresionesParser.ExprStatementContext):
+    # Visit a parse tree produced by ExpresionesParser#ifStatement.
+    def visitIfStatement(self, ctx:ExpresionesParser.IfStatementContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by ExpresionesParser#ifStatement.
-    def visitIfStatement(self, ctx:ExpresionesParser.IfStatementContext):
+    # Visit a parse tree produced by ExpresionesParser#whileStatement.
+    def visitWhileStatement(self, ctx:ExpresionesParser.WhileStatementContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by ExpresionesParser#forStatement.
+    def visitForStatement(self, ctx:ExpresionesParser.ForStatementContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by ExpresionesParser#forInitDecl.
+    def visitForInitDecl(self, ctx:ExpresionesParser.ForInitDeclContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by ExpresionesParser#forInitAssign.
+    def visitForInitAssign(self, ctx:ExpresionesParser.ForInitAssignContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by ExpresionesParser#forUpdate.
+    def visitForUpdate(self, ctx:ExpresionesParser.ForUpdateContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by ExpresionesParser#returnStatement.
+    def visitReturnStatement(self, ctx:ExpresionesParser.ReturnStatementContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by ExpresionesParser#printStatement.
+    def visitPrintStatement(self, ctx:ExpresionesParser.PrintStatementContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by ExpresionesParser#exprStatement.
+    def visitExprStatement(self, ctx:ExpresionesParser.ExprStatementContext):
         return self.visitChildren(ctx)
 
 
@@ -51,6 +111,31 @@ class ExpresionesVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by ExpresionesParser#type.
     def visitType(self, ctx:ExpresionesParser.TypeContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by ExpresionesParser#orExpr.
+    def visitOrExpr(self, ctx:ExpresionesParser.OrExprContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by ExpresionesParser#funcCallExpr.
+    def visitFuncCallExpr(self, ctx:ExpresionesParser.FuncCallExprContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by ExpresionesParser#parenExpr.
+    def visitParenExpr(self, ctx:ExpresionesParser.ParenExprContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by ExpresionesParser#numExpr.
+    def visitNumExpr(self, ctx:ExpresionesParser.NumExprContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by ExpresionesParser#stringExpr.
+    def visitStringExpr(self, ctx:ExpresionesParser.StringExprContext):
         return self.visitChildren(ctx)
 
 
@@ -79,11 +164,6 @@ class ExpresionesVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by ExpresionesParser#orExpr.
-    def visitOrExpr(self, ctx:ExpresionesParser.OrExprContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by ExpresionesParser#boolExpr.
     def visitBoolExpr(self, ctx:ExpresionesParser.BoolExprContext):
         return self.visitChildren(ctx)
@@ -94,16 +174,6 @@ class ExpresionesVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by ExpresionesParser#parenExpr.
-    def visitParenExpr(self, ctx:ExpresionesParser.ParenExprContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by ExpresionesParser#numExpr.
-    def visitNumExpr(self, ctx:ExpresionesParser.NumExprContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by ExpresionesParser#idExpr.
     def visitIdExpr(self, ctx:ExpresionesParser.IdExprContext):
         return self.visitChildren(ctx)
@@ -111,6 +181,11 @@ class ExpresionesVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by ExpresionesParser#andExpr.
     def visitAndExpr(self, ctx:ExpresionesParser.AndExprContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by ExpresionesParser#argList.
+    def visitArgList(self, ctx:ExpresionesParser.ArgListContext):
         return self.visitChildren(ctx)
 
 
