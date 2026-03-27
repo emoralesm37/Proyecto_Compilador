@@ -1,0 +1,38 @@
+// Programa de prueba completo — Proyecto 2
+program {
+
+    int x = 10;
+    string prefijo = "Factorial de ";
+
+    // ── Función recursiva ──────────────────────────────────
+    int factorial(int n) {
+        if (n <= 1) {
+            return 1;
+        } else {
+            return n * factorial(n - 1);
+        }
+    }
+
+    // ── Función suma con for ───────────────────────────────
+    int sumaHasta(int limite) {
+        int total = 0;
+        for (int i = 1; i <= limite; i = i + 1) {
+            total = total + i;
+        }
+        return total;
+    }
+
+    // ── Ciclo while con print ──────────────────────────────
+    while (x > 0) {
+        int resultado = factorial(x);
+        print(prefijo);
+        print(x);
+        print(resultado);
+        x = x - 2;
+    }
+
+    // ── Prueba de suma ────────────────────────────────────
+    int s = sumaHasta(5);
+    print(s);
+
+}

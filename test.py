@@ -1,5 +1,4 @@
 # ================================================================
-# el archivo se llama interprete.py
 # Punto de entrada del intérprete para Expresiones
 # Uso: python3 test.py <entrada>
 # ================================================================
@@ -7,10 +6,9 @@
 import sys
 from antlr4 import *
 from antlr4.error.ErrorListener import ErrorListener
-
 from ExpresionesLexer   import ExpresionesLexer
 from ExpresionesParser  import ExpresionesParser
-from ExpresionesVisitor  import ExpresionesVisitor
+from EvaluadorVisitor import EvaluadorVisitor
 
 
 # ============================================================
@@ -91,7 +89,7 @@ def main(entrada: str):
     # ----------------------------------------------------------
     print("─" * 50)
     try:
-        visitor = ExpresionesVisitor()
+        visitor = EvaluadorVisitor()
         visitor.visit(tree)
         print(f"\n{'─' * 50}")
         print("OK Programa ejecutado exitosamente.")

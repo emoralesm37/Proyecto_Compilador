@@ -1,6 +1,6 @@
-# Generated from Expresiones.g4 by ANTLR 4.9.2
+# Generated from Expresiones.g4 by ANTLR 4.13.2
 from antlr4 import *
-if __name__ is not None and "." in __name__:
+if "." in __name__:
     from .ExpresionesParser import ExpresionesParser
 else:
     from ExpresionesParser import ExpresionesParser
@@ -14,6 +14,15 @@ class ExpresionesListener(ParseTreeListener):
 
     # Exit a parse tree produced by ExpresionesParser#program.
     def exitProgram(self, ctx:ExpresionesParser.ProgramContext):
+        pass
+
+
+    # Enter a parse tree produced by ExpresionesParser#name.
+    def enterName(self, ctx:ExpresionesParser.NameContext):
+        pass
+
+    # Exit a parse tree produced by ExpresionesParser#name.
+    def exitName(self, ctx:ExpresionesParser.NameContext):
         pass
 
 
@@ -71,12 +80,12 @@ class ExpresionesListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by ExpresionesParser#t_type.
-    def enterT_type(self, ctx:ExpresionesParser.T_typeContext):
+    # Enter a parse tree produced by ExpresionesParser#type.
+    def enterType(self, ctx:ExpresionesParser.TypeContext):
         pass
 
-    # Exit a parse tree produced by ExpresionesParser#t_type.
-    def exitT_type(self, ctx:ExpresionesParser.T_typeContext):
+    # Exit a parse tree produced by ExpresionesParser#type.
+    def exitType(self, ctx:ExpresionesParser.TypeContext):
         pass
 
 
