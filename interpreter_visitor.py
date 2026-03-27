@@ -52,7 +52,7 @@ class InterpreterVisitor(ExpresionesVisitor):
     # ──────────────────────────────────────────────────────────
 
     def visitVarDecl(self, ctx: ExpresionesParser.VarDeclContext):
-        tipo   = ctx.type_().getText()
+        tipo   = ctx.t_type().getText()
         nombre = ctx.ID().getText()
 
         if ctx.expr():
@@ -107,7 +107,7 @@ class InterpreterVisitor(ExpresionesVisitor):
         self.tabla.pop_scope()
 
     def visitForInitDecl(self, ctx: ExpresionesParser.ForInitDeclContext):
-        tipo   = ctx.type_().getText()
+        tipo   = ctx.t_type().getText()
         nombre = ctx.ID().getText()
         valor  = self.convertir(self.visit(ctx.expr()), tipo)
         self.tabla.declarar_variable(nombre, tipo, valor)
@@ -161,7 +161,7 @@ class InterpreterVisitor(ExpresionesVisitor):
         params = []
         if func_ctx.paramList():
             for p in func_ctx.paramList().param():
-                params.append((p.type_().getText(), p.ID().getText()))
+                params.append((p.t_type().getText(), p.ID().getText()))
 
         # Crear nuevo scope para la función
         self.tabla.push_scope()

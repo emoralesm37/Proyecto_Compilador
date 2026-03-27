@@ -73,7 +73,7 @@ class SemanticVisitor(ExpresionesVisitor):
         parametros = []
         if ctx.paramList():
             for p in ctx.paramList().param():
-                parametros.append((p.type_().getText(), p.ID().getText()))
+                parametros.append((p.t_type().getText(), p.ID().getText()))
 
         try:
             self.tabla.declarar_funcion(nombre, tipo_retorno, parametros,
@@ -105,7 +105,7 @@ class SemanticVisitor(ExpresionesVisitor):
         # Declarar parámetros en el ámbito local
         if ctx.paramList():
             for p in ctx.paramList().param():
-                tipo_p   = p.type_().getText()
+                tipo_p   = p.t_type().getText()
                 nombre_p = p.ID().getText()
                 token_p  = p.ID().getSymbol()
                 try:
@@ -128,7 +128,7 @@ class SemanticVisitor(ExpresionesVisitor):
     # ──────────────────────────────────────────────────────────
 
     def visitVarDecl(self, ctx: ExpresionesParser.VarDeclContext):
-        tipo   = ctx.type_().getText()
+        tipo = ctx.t_type().getText()
         nombre = ctx.ID().getText()
         token  = ctx.ID().getSymbol()
 
@@ -196,7 +196,7 @@ class SemanticVisitor(ExpresionesVisitor):
         self.tabla.pop_scope()
 
     def visitForInitDecl(self, ctx: ExpresionesParser.ForInitDeclContext):
-        tipo   = ctx.type_().getText()
+        tipo   = ctx.t_type().getText()
         nombre = ctx.ID().getText()
         token  = ctx.ID().getSymbol()
         tipo_expr = self.tipo_expr(ctx.expr())
