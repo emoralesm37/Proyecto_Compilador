@@ -9,6 +9,16 @@ from ExpresionesParser  import ExpresionesParser
 from ExpresionesVisitor import ExpresionesVisitor
 from Tabla_de_simbolos  import TablaSimbolos
 
+def visitProgram(self, ctx: ExpresionesParser.ProgramContext):
+    #obtener el nombre dle programa
+    if ctx.ID():
+        nombre_programa = ctx.ID().getText()
+    else:
+        nombre_programa = "Programa sin nombre" # solo si no se especifica un nombre
+
+    print("=" * 55)
+    print(f"  Iniciando ejecución de '{nombre_programa}'")
+    print("=" * 55 + "\n")
 
 class SemanticVisitor(ExpresionesVisitor):
 

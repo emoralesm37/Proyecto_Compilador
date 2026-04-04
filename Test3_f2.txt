@@ -1,0 +1,10 @@
+program {
+    int x = 5;
+    int temp;
+    while (x > 0) {
+        int temp = x * 2;
+        x = x - 1;
+    }
+
+    print(temp);
+}

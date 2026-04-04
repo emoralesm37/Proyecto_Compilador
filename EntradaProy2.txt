@@ -1,5 +1,5 @@
 // Programa de prueba completo — Proyecto 2
-program {
+program TEST5 {
 
     int x = 10;
     string prefijo = "Factorial de ";

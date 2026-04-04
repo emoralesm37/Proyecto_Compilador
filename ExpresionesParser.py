@@ -9,6 +9,7 @@ else:
 	from typing.io import TextIO
 
 def serializedATN():
+<<<<<<< HEAD
     with StringIO() as buf:
         buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3-")
         buf.write("\u00dd\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7")
@@ -101,6 +102,87 @@ def serializedATN():
         buf.write("\u0092\u00a3\u00b2\u00be\u00cf\u00d1\u00d9")
         return buf.getvalue()
 
+=======
+    return [
+        4,1,43,222,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
+        6,2,7,7,7,2,8,7,8,2,9,7,9,2,10,7,10,2,11,7,11,2,12,7,12,2,13,7,13,
+        2,14,7,14,2,15,7,15,2,16,7,16,2,17,7,17,2,18,7,18,2,19,7,19,2,20,
+        7,20,1,0,1,0,3,0,45,8,0,1,0,1,0,4,0,49,8,0,11,0,12,0,50,1,0,1,0,
+        1,0,1,1,1,1,3,1,58,8,1,1,2,1,2,1,2,1,2,3,2,64,8,2,1,2,1,2,1,2,1,
+        3,1,3,3,3,71,8,3,1,4,1,4,1,4,5,4,76,8,4,10,4,12,4,79,9,4,1,5,1,5,
+        1,5,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,3,6,92,8,6,1,7,1,7,1,7,1,7,3,
+        7,98,8,7,1,7,1,7,1,8,1,8,1,8,1,8,1,8,1,9,1,9,1,9,1,9,1,9,1,9,1,9,
+        3,9,114,8,9,1,10,1,10,1,10,1,10,1,10,1,10,1,11,1,11,1,11,1,11,1,
+        11,1,11,1,11,1,11,1,11,1,11,1,12,1,12,1,12,1,12,1,12,1,12,1,12,1,
+        12,3,12,140,8,12,1,13,1,13,1,13,1,13,1,14,1,14,3,14,148,8,14,1,14,
+        1,14,1,15,1,15,1,15,1,15,1,15,1,15,1,16,1,16,1,16,1,17,1,17,5,17,
+        163,8,17,10,17,12,17,166,9,17,1,17,1,17,1,18,1,18,1,19,1,19,1,19,
+        1,19,1,19,1,19,1,19,1,19,3,19,180,8,19,1,19,1,19,1,19,1,19,1,19,
+        1,19,1,19,1,19,1,19,1,19,3,19,192,8,19,1,19,1,19,1,19,1,19,1,19,
+        1,19,1,19,1,19,1,19,1,19,1,19,1,19,1,19,1,19,1,19,5,19,209,8,19,
+        10,19,12,19,212,9,19,1,20,1,20,1,20,5,20,217,8,20,10,20,12,20,220,
+        9,20,1,20,0,1,38,21,0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,
+        34,36,38,40,0,4,1,0,9,12,1,0,16,18,1,0,14,15,1,0,19,24,233,0,42,
+        1,0,0,0,2,57,1,0,0,0,4,59,1,0,0,0,6,70,1,0,0,0,8,72,1,0,0,0,10,80,
+        1,0,0,0,12,91,1,0,0,0,14,93,1,0,0,0,16,101,1,0,0,0,18,106,1,0,0,
+        0,20,115,1,0,0,0,22,121,1,0,0,0,24,139,1,0,0,0,26,141,1,0,0,0,28,
+        145,1,0,0,0,30,151,1,0,0,0,32,157,1,0,0,0,34,160,1,0,0,0,36,169,
+        1,0,0,0,38,191,1,0,0,0,40,213,1,0,0,0,42,44,5,7,0,0,43,45,5,40,0,
+        0,44,43,1,0,0,0,44,45,1,0,0,0,45,46,1,0,0,0,46,48,5,31,0,0,47,49,
+        3,2,1,0,48,47,1,0,0,0,49,50,1,0,0,0,50,48,1,0,0,0,50,51,1,0,0,0,
+        51,52,1,0,0,0,52,53,5,32,0,0,53,54,5,0,0,1,54,1,1,0,0,0,55,58,3,
+        4,2,0,56,58,3,12,6,0,57,55,1,0,0,0,57,56,1,0,0,0,58,3,1,0,0,0,59,
+        60,3,6,3,0,60,61,5,40,0,0,61,63,5,29,0,0,62,64,3,8,4,0,63,62,1,0,
+        0,0,63,64,1,0,0,0,64,65,1,0,0,0,65,66,5,30,0,0,66,67,3,34,17,0,67,
+        5,1,0,0,0,68,71,3,36,18,0,69,71,5,8,0,0,70,68,1,0,0,0,70,69,1,0,
+        0,0,71,7,1,0,0,0,72,77,3,10,5,0,73,74,5,36,0,0,74,76,3,10,5,0,75,
+        73,1,0,0,0,76,79,1,0,0,0,77,75,1,0,0,0,77,78,1,0,0,0,78,9,1,0,0,
+        0,79,77,1,0,0,0,80,81,3,36,18,0,81,82,5,40,0,0,82,11,1,0,0,0,83,
+        92,3,14,7,0,84,92,3,16,8,0,85,92,3,18,9,0,86,92,3,20,10,0,87,92,
+        3,22,11,0,88,92,3,28,14,0,89,92,3,30,15,0,90,92,3,32,16,0,91,83,
+        1,0,0,0,91,84,1,0,0,0,91,85,1,0,0,0,91,86,1,0,0,0,91,87,1,0,0,0,
+        91,88,1,0,0,0,91,89,1,0,0,0,91,90,1,0,0,0,92,13,1,0,0,0,93,94,3,
+        36,18,0,94,97,5,40,0,0,95,96,5,28,0,0,96,98,3,38,19,0,97,95,1,0,
+        0,0,97,98,1,0,0,0,98,99,1,0,0,0,99,100,5,35,0,0,100,15,1,0,0,0,101,
+        102,5,40,0,0,102,103,5,28,0,0,103,104,3,38,19,0,104,105,5,35,0,0,
+        105,17,1,0,0,0,106,107,5,1,0,0,107,108,5,29,0,0,108,109,3,38,19,
+        0,109,110,5,30,0,0,110,113,3,34,17,0,111,112,5,2,0,0,112,114,3,34,
+        17,0,113,111,1,0,0,0,113,114,1,0,0,0,114,19,1,0,0,0,115,116,5,3,
+        0,0,116,117,5,29,0,0,117,118,3,38,19,0,118,119,5,30,0,0,119,120,
+        3,34,17,0,120,21,1,0,0,0,121,122,5,4,0,0,122,123,5,29,0,0,123,124,
+        3,24,12,0,124,125,5,35,0,0,125,126,3,38,19,0,126,127,5,35,0,0,127,
+        128,3,26,13,0,128,129,5,30,0,0,129,130,3,34,17,0,130,23,1,0,0,0,
+        131,132,3,36,18,0,132,133,5,40,0,0,133,134,5,28,0,0,134,135,3,38,
+        19,0,135,140,1,0,0,0,136,137,5,40,0,0,137,138,5,28,0,0,138,140,3,
+        38,19,0,139,131,1,0,0,0,139,136,1,0,0,0,140,25,1,0,0,0,141,142,5,
+        40,0,0,142,143,5,28,0,0,143,144,3,38,19,0,144,27,1,0,0,0,145,147,
+        5,5,0,0,146,148,3,38,19,0,147,146,1,0,0,0,147,148,1,0,0,0,148,149,
+        1,0,0,0,149,150,5,35,0,0,150,29,1,0,0,0,151,152,5,6,0,0,152,153,
+        5,29,0,0,153,154,3,38,19,0,154,155,5,30,0,0,155,156,5,35,0,0,156,
+        31,1,0,0,0,157,158,3,38,19,0,158,159,5,35,0,0,159,33,1,0,0,0,160,
+        164,5,31,0,0,161,163,3,12,6,0,162,161,1,0,0,0,163,166,1,0,0,0,164,
+        162,1,0,0,0,164,165,1,0,0,0,165,167,1,0,0,0,166,164,1,0,0,0,167,
+        168,5,32,0,0,168,35,1,0,0,0,169,170,7,0,0,0,170,37,1,0,0,0,171,172,
+        6,19,-1,0,172,173,5,27,0,0,173,192,3,38,19,9,174,175,5,15,0,0,175,
+        192,3,38,19,8,176,177,5,40,0,0,177,179,5,29,0,0,178,180,3,40,20,
+        0,179,178,1,0,0,0,179,180,1,0,0,0,180,181,1,0,0,0,181,192,5,30,0,
+        0,182,183,5,29,0,0,183,184,3,38,19,0,184,185,5,30,0,0,185,192,1,
+        0,0,0,186,192,5,37,0,0,187,192,5,38,0,0,188,192,5,13,0,0,189,192,
+        5,39,0,0,190,192,5,40,0,0,191,171,1,0,0,0,191,174,1,0,0,0,191,176,
+        1,0,0,0,191,182,1,0,0,0,191,186,1,0,0,0,191,187,1,0,0,0,191,188,
+        1,0,0,0,191,189,1,0,0,0,191,190,1,0,0,0,192,210,1,0,0,0,193,194,
+        10,14,0,0,194,195,7,1,0,0,195,209,3,38,19,15,196,197,10,13,0,0,197,
+        198,7,2,0,0,198,209,3,38,19,14,199,200,10,12,0,0,200,201,7,3,0,0,
+        201,209,3,38,19,13,202,203,10,11,0,0,203,204,5,25,0,0,204,209,3,
+        38,19,12,205,206,10,10,0,0,206,207,5,26,0,0,207,209,3,38,19,11,208,
+        193,1,0,0,0,208,196,1,0,0,0,208,199,1,0,0,0,208,202,1,0,0,0,208,
+        205,1,0,0,0,209,212,1,0,0,0,210,208,1,0,0,0,210,211,1,0,0,0,211,
+        39,1,0,0,0,212,210,1,0,0,0,213,218,3,38,19,0,214,215,5,36,0,0,215,
+        217,3,38,19,0,216,214,1,0,0,0,217,220,1,0,0,0,218,216,1,0,0,0,218,
+        219,1,0,0,0,219,41,1,0,0,0,220,218,1,0,0,0,17,44,50,57,63,70,77,
+        91,97,113,139,147,164,179,191,208,210,218
+    ]
+>>>>>>> 199f34a (Actualizacion de la función visitProgram en los archivos interpreter_visitor.py y semantic_visitor.py para mostrar un mensaje de inicio de ejecución del programa, incluyendo el nombre del programa si está especificado.)
 
 class ExpresionesParser ( Parser ):
 
@@ -228,6 +310,9 @@ class ExpresionesParser ( Parser ):
         def EOF(self):
             return self.getToken(ExpresionesParser.EOF, 0)
 
+        def ID(self):
+            return self.getToken(ExpresionesParser.ID, 0)
+
         def topLevelDecl(self, i:int=None):
             if i is None:
                 return self.getTypedRuleContexts(ExpresionesParser.TopLevelDeclContext)
@@ -264,23 +349,31 @@ class ExpresionesParser ( Parser ):
             self.enterOuterAlt(localctx, 1)
             self.state = 42
             self.match(ExpresionesParser.PROGRAM)
-            self.state = 43
+            self.state = 44
+            self._errHandler.sync(self)
+            _la = self._input.LA(1)
+            if _la==40:
+                self.state = 43
+                self.match(ExpresionesParser.ID)
+
+
+            self.state = 46
             self.match(ExpresionesParser.LLAVEA)
-            self.state = 45 
+            self.state = 48 
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while True:
-                self.state = 44
+                self.state = 47
                 self.topLevelDecl()
-                self.state = 47 
+                self.state = 50 
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ExpresionesParser.IF) | (1 << ExpresionesParser.WHILE) | (1 << ExpresionesParser.FOR) | (1 << ExpresionesParser.RETURN) | (1 << ExpresionesParser.PRINT) | (1 << ExpresionesParser.VOID) | (1 << ExpresionesParser.INT_T) | (1 << ExpresionesParser.FLOAT_T) | (1 << ExpresionesParser.BOOL_T) | (1 << ExpresionesParser.STRING_T) | (1 << ExpresionesParser.BOOL_LIT) | (1 << ExpresionesParser.RESTA) | (1 << ExpresionesParser.NOT) | (1 << ExpresionesParser.PARENA) | (1 << ExpresionesParser.FLOAT_LIT) | (1 << ExpresionesParser.NUM) | (1 << ExpresionesParser.STRING_LIT) | (1 << ExpresionesParser.ID))) != 0)):
                     break
 
-            self.state = 49
+            self.state = 52
             self.match(ExpresionesParser.LLAVEC)
-            self.state = 50
+            self.state = 53
             self.match(ExpresionesParser.EOF)
         except RecognitionException as re:
             localctx.exception = re
@@ -363,20 +456,20 @@ class ExpresionesParser ( Parser ):
         localctx = ExpresionesParser.TopLevelDeclContext(self, self._ctx, self.state)
         self.enterRule(localctx, 2, self.RULE_topLevelDecl)
         try:
-            self.state = 54
+            self.state = 57
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,1,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input,2,self._ctx)
             if la_ == 1:
                 localctx = ExpresionesParser.TopFuncDeclContext(self, localctx)
                 self.enterOuterAlt(localctx, 1)
-                self.state = 52
+                self.state = 55
                 self.funcDecl()
                 pass
 
             elif la_ == 2:
                 localctx = ExpresionesParser.TopStatementContext(self, localctx)
                 self.enterOuterAlt(localctx, 2)
-                self.state = 53
+                self.state = 56
                 self.statement()
                 pass
 
@@ -444,23 +537,28 @@ class ExpresionesParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 56
+            self.state = 59
             self.returnType()
-            self.state = 57
-            self.match(ExpresionesParser.ID)
-            self.state = 58
-            self.match(ExpresionesParser.PARENA)
             self.state = 60
+            self.match(ExpresionesParser.ID)
+            self.state = 61
+            self.match(ExpresionesParser.PARENA)
+            self.state = 63
             self._errHandler.sync(self)
             _la = self._input.LA(1)
+<<<<<<< HEAD
             if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ExpresionesParser.INT_T) | (1 << ExpresionesParser.FLOAT_T) | (1 << ExpresionesParser.BOOL_T) | (1 << ExpresionesParser.STRING_T))) != 0):
                 self.state = 59
+=======
+            if (((_la) & ~0x3f) == 0 and ((1 << _la) & 7680) != 0):
+                self.state = 62
+>>>>>>> 199f34a (Actualizacion de la función visitProgram en los archivos interpreter_visitor.py y semantic_visitor.py para mostrar un mensaje de inicio de ejecución del programa, incluyendo el nombre del programa si está especificado.)
                 self.paramList()
 
 
-            self.state = 62
+            self.state = 65
             self.match(ExpresionesParser.PARENC)
-            self.state = 63
+            self.state = 66
             self.block()
         except RecognitionException as re:
             localctx.exception = re
@@ -509,17 +607,22 @@ class ExpresionesParser ( Parser ):
         localctx = ExpresionesParser.ReturnTypeContext(self, self._ctx, self.state)
         self.enterRule(localctx, 6, self.RULE_returnType)
         try:
-            self.state = 67
+            self.state = 70
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [ExpresionesParser.INT_T, ExpresionesParser.FLOAT_T, ExpresionesParser.BOOL_T, ExpresionesParser.STRING_T]:
                 self.enterOuterAlt(localctx, 1)
+<<<<<<< HEAD
                 self.state = 65
                 self.t_type()
+=======
+                self.state = 68
+                self.type_()
+>>>>>>> 199f34a (Actualizacion de la función visitProgram en los archivos interpreter_visitor.py y semantic_visitor.py para mostrar un mensaje de inicio de ejecución del programa, incluyendo el nombre del programa si está especificado.)
                 pass
             elif token in [ExpresionesParser.VOID]:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 66
+                self.state = 69
                 self.match(ExpresionesParser.VOID)
                 pass
             else:
@@ -580,17 +683,22 @@ class ExpresionesParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 69
+            self.state = 72
             self.param()
-            self.state = 74
+            self.state = 77
             self._errHandler.sync(self)
             _la = self._input.LA(1)
+<<<<<<< HEAD
             while _la==ExpresionesParser.COMMA:
                 self.state = 70
+=======
+            while _la==36:
+                self.state = 73
+>>>>>>> 199f34a (Actualizacion de la función visitProgram en los archivos interpreter_visitor.py y semantic_visitor.py para mostrar un mensaje de inicio de ejecución del programa, incluyendo el nombre del programa si está especificado.)
                 self.match(ExpresionesParser.COMMA)
-                self.state = 71
+                self.state = 74
                 self.param()
-                self.state = 76
+                self.state = 79
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
@@ -642,9 +750,15 @@ class ExpresionesParser ( Parser ):
         self.enterRule(localctx, 10, self.RULE_param)
         try:
             self.enterOuterAlt(localctx, 1)
+<<<<<<< HEAD
             self.state = 77
             self.t_type()
             self.state = 78
+=======
+            self.state = 80
+            self.type_()
+            self.state = 81
+>>>>>>> 199f34a (Actualizacion de la función visitProgram en los archivos interpreter_visitor.py y semantic_visitor.py para mostrar un mensaje de inicio de ejecución del programa, incluyendo el nombre del programa si está especificado.)
             self.match(ExpresionesParser.ID)
         except RecognitionException as re:
             localctx.exception = re
@@ -718,54 +832,54 @@ class ExpresionesParser ( Parser ):
         localctx = ExpresionesParser.StatementContext(self, self._ctx, self.state)
         self.enterRule(localctx, 12, self.RULE_statement)
         try:
-            self.state = 88
+            self.state = 91
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,5,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input,6,self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 80
+                self.state = 83
                 self.varDecl()
                 pass
 
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 81
+                self.state = 84
                 self.assignment()
                 pass
 
             elif la_ == 3:
                 self.enterOuterAlt(localctx, 3)
-                self.state = 82
+                self.state = 85
                 self.ifStatement()
                 pass
 
             elif la_ == 4:
                 self.enterOuterAlt(localctx, 4)
-                self.state = 83
+                self.state = 86
                 self.whileStatement()
                 pass
 
             elif la_ == 5:
                 self.enterOuterAlt(localctx, 5)
-                self.state = 84
+                self.state = 87
                 self.forStatement()
                 pass
 
             elif la_ == 6:
                 self.enterOuterAlt(localctx, 6)
-                self.state = 85
+                self.state = 88
                 self.returnStatement()
                 pass
 
             elif la_ == 7:
                 self.enterOuterAlt(localctx, 7)
-                self.state = 86
+                self.state = 89
                 self.printStatement()
                 pass
 
             elif la_ == 8:
                 self.enterOuterAlt(localctx, 8)
-                self.state = 87
+                self.state = 90
                 self.exprStatement()
                 pass
 
@@ -829,21 +943,33 @@ class ExpresionesParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
+<<<<<<< HEAD
             self.state = 90
             self.t_type()
             self.state = 91
             self.match(ExpresionesParser.ID)
+=======
+            self.state = 93
+            self.type_()
+>>>>>>> 199f34a (Actualizacion de la función visitProgram en los archivos interpreter_visitor.py y semantic_visitor.py para mostrar un mensaje de inicio de ejecución del programa, incluyendo el nombre del programa si está especificado.)
             self.state = 94
+            self.match(ExpresionesParser.ID)
+            self.state = 97
             self._errHandler.sync(self)
             _la = self._input.LA(1)
+<<<<<<< HEAD
             if _la==ExpresionesParser.ASIGNA:
                 self.state = 92
+=======
+            if _la==28:
+                self.state = 95
+>>>>>>> 199f34a (Actualizacion de la función visitProgram en los archivos interpreter_visitor.py y semantic_visitor.py para mostrar un mensaje de inicio de ejecución del programa, incluyendo el nombre del programa si está especificado.)
                 self.match(ExpresionesParser.ASIGNA)
-                self.state = 93
+                self.state = 96
                 self.expr(0)
 
 
-            self.state = 96
+            self.state = 99
             self.match(ExpresionesParser.PCOMA)
         except RecognitionException as re:
             localctx.exception = re
@@ -899,13 +1025,13 @@ class ExpresionesParser ( Parser ):
         self.enterRule(localctx, 16, self.RULE_assignment)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 98
-            self.match(ExpresionesParser.ID)
-            self.state = 99
-            self.match(ExpresionesParser.ASIGNA)
-            self.state = 100
-            self.expr(0)
             self.state = 101
+            self.match(ExpresionesParser.ID)
+            self.state = 102
+            self.match(ExpresionesParser.ASIGNA)
+            self.state = 103
+            self.expr(0)
+            self.state = 104
             self.match(ExpresionesParser.PCOMA)
         except RecognitionException as re:
             localctx.exception = re
@@ -972,23 +1098,28 @@ class ExpresionesParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 103
-            self.match(ExpresionesParser.IF)
-            self.state = 104
-            self.match(ExpresionesParser.PARENA)
-            self.state = 105
-            self.expr(0)
             self.state = 106
-            self.match(ExpresionesParser.PARENC)
+            self.match(ExpresionesParser.IF)
             self.state = 107
-            self.block()
+            self.match(ExpresionesParser.PARENA)
+            self.state = 108
+            self.expr(0)
+            self.state = 109
+            self.match(ExpresionesParser.PARENC)
             self.state = 110
+            self.block()
+            self.state = 113
             self._errHandler.sync(self)
             _la = self._input.LA(1)
+<<<<<<< HEAD
             if _la==ExpresionesParser.ELSE:
                 self.state = 108
+=======
+            if _la==2:
+                self.state = 111
+>>>>>>> 199f34a (Actualizacion de la función visitProgram en los archivos interpreter_visitor.py y semantic_visitor.py para mostrar un mensaje de inicio de ejecución del programa, incluyendo el nombre del programa si está especificado.)
                 self.match(ExpresionesParser.ELSE)
-                self.state = 109
+                self.state = 112
                 self.block()
 
 
@@ -1050,15 +1181,15 @@ class ExpresionesParser ( Parser ):
         self.enterRule(localctx, 20, self.RULE_whileStatement)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 112
-            self.match(ExpresionesParser.WHILE)
-            self.state = 113
-            self.match(ExpresionesParser.PARENA)
-            self.state = 114
-            self.expr(0)
             self.state = 115
-            self.match(ExpresionesParser.PARENC)
+            self.match(ExpresionesParser.WHILE)
             self.state = 116
+            self.match(ExpresionesParser.PARENA)
+            self.state = 117
+            self.expr(0)
+            self.state = 118
+            self.match(ExpresionesParser.PARENC)
+            self.state = 119
             self.block()
         except RecognitionException as re:
             localctx.exception = re
@@ -1132,23 +1263,23 @@ class ExpresionesParser ( Parser ):
         self.enterRule(localctx, 22, self.RULE_forStatement)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 118
-            self.match(ExpresionesParser.FOR)
-            self.state = 119
-            self.match(ExpresionesParser.PARENA)
-            self.state = 120
-            self.forInit()
             self.state = 121
-            self.match(ExpresionesParser.PCOMA)
+            self.match(ExpresionesParser.FOR)
             self.state = 122
-            self.expr(0)
+            self.match(ExpresionesParser.PARENA)
             self.state = 123
-            self.match(ExpresionesParser.PCOMA)
+            self.forInit()
             self.state = 124
-            self.forUpdate()
+            self.match(ExpresionesParser.PCOMA)
             self.state = 125
-            self.match(ExpresionesParser.PARENC)
+            self.expr(0)
             self.state = 126
+            self.match(ExpresionesParser.PCOMA)
+            self.state = 127
+            self.forUpdate()
+            self.state = 128
+            self.match(ExpresionesParser.PARENC)
+            self.state = 129
             self.block()
         except RecognitionException as re:
             localctx.exception = re
@@ -1242,29 +1373,38 @@ class ExpresionesParser ( Parser ):
         localctx = ExpresionesParser.ForInitContext(self, self._ctx, self.state)
         self.enterRule(localctx, 24, self.RULE_forInit)
         try:
-            self.state = 136
+            self.state = 139
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [ExpresionesParser.INT_T, ExpresionesParser.FLOAT_T, ExpresionesParser.BOOL_T, ExpresionesParser.STRING_T]:
                 localctx = ExpresionesParser.ForInitDeclContext(self, localctx)
                 self.enterOuterAlt(localctx, 1)
+<<<<<<< HEAD
                 self.state = 128
                 self.t_type()
                 self.state = 129
                 self.match(ExpresionesParser.ID)
                 self.state = 130
                 self.match(ExpresionesParser.ASIGNA)
+=======
+>>>>>>> 199f34a (Actualizacion de la función visitProgram en los archivos interpreter_visitor.py y semantic_visitor.py para mostrar un mensaje de inicio de ejecución del programa, incluyendo el nombre del programa si está especificado.)
                 self.state = 131
+                self.type_()
+                self.state = 132
+                self.match(ExpresionesParser.ID)
+                self.state = 133
+                self.match(ExpresionesParser.ASIGNA)
+                self.state = 134
                 self.expr(0)
                 pass
             elif token in [ExpresionesParser.ID]:
                 localctx = ExpresionesParser.ForInitAssignContext(self, localctx)
                 self.enterOuterAlt(localctx, 2)
-                self.state = 133
+                self.state = 136
                 self.match(ExpresionesParser.ID)
-                self.state = 134
+                self.state = 137
                 self.match(ExpresionesParser.ASIGNA)
-                self.state = 135
+                self.state = 138
                 self.expr(0)
                 pass
             else:
@@ -1321,11 +1461,11 @@ class ExpresionesParser ( Parser ):
         self.enterRule(localctx, 26, self.RULE_forUpdate)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 138
+            self.state = 141
             self.match(ExpresionesParser.ID)
-            self.state = 139
+            self.state = 142
             self.match(ExpresionesParser.ASIGNA)
-            self.state = 140
+            self.state = 143
             self.expr(0)
         except RecognitionException as re:
             localctx.exception = re
@@ -1379,17 +1519,22 @@ class ExpresionesParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 142
+            self.state = 145
             self.match(ExpresionesParser.RETURN)
-            self.state = 144
+            self.state = 147
             self._errHandler.sync(self)
             _la = self._input.LA(1)
+<<<<<<< HEAD
             if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ExpresionesParser.BOOL_LIT) | (1 << ExpresionesParser.RESTA) | (1 << ExpresionesParser.NOT) | (1 << ExpresionesParser.PARENA) | (1 << ExpresionesParser.FLOAT_LIT) | (1 << ExpresionesParser.NUM) | (1 << ExpresionesParser.STRING_LIT) | (1 << ExpresionesParser.ID))) != 0):
                 self.state = 143
+=======
+            if (((_la) & ~0x3f) == 0 and ((1 << _la) & 2062255431680) != 0):
+                self.state = 146
+>>>>>>> 199f34a (Actualizacion de la función visitProgram en los archivos interpreter_visitor.py y semantic_visitor.py para mostrar un mensaje de inicio de ejecución del programa, incluyendo el nombre del programa si está especificado.)
                 self.expr(0)
 
 
-            self.state = 146
+            self.state = 149
             self.match(ExpresionesParser.PCOMA)
         except RecognitionException as re:
             localctx.exception = re
@@ -1448,15 +1593,15 @@ class ExpresionesParser ( Parser ):
         self.enterRule(localctx, 30, self.RULE_printStatement)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 148
-            self.match(ExpresionesParser.PRINT)
-            self.state = 149
-            self.match(ExpresionesParser.PARENA)
-            self.state = 150
-            self.expr(0)
             self.state = 151
-            self.match(ExpresionesParser.PARENC)
+            self.match(ExpresionesParser.PRINT)
             self.state = 152
+            self.match(ExpresionesParser.PARENA)
+            self.state = 153
+            self.expr(0)
+            self.state = 154
+            self.match(ExpresionesParser.PARENC)
+            self.state = 155
             self.match(ExpresionesParser.PCOMA)
         except RecognitionException as re:
             localctx.exception = re
@@ -1506,9 +1651,9 @@ class ExpresionesParser ( Parser ):
         self.enterRule(localctx, 32, self.RULE_exprStatement)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 154
+            self.state = 157
             self.expr(0)
-            self.state = 155
+            self.state = 158
             self.match(ExpresionesParser.PCOMA)
         except RecognitionException as re:
             localctx.exception = re
@@ -1565,19 +1710,24 @@ class ExpresionesParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 157
+            self.state = 160
             self.match(ExpresionesParser.LLAVEA)
-            self.state = 161
+            self.state = 164
             self._errHandler.sync(self)
             _la = self._input.LA(1)
+<<<<<<< HEAD
             while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ExpresionesParser.IF) | (1 << ExpresionesParser.WHILE) | (1 << ExpresionesParser.FOR) | (1 << ExpresionesParser.RETURN) | (1 << ExpresionesParser.PRINT) | (1 << ExpresionesParser.INT_T) | (1 << ExpresionesParser.FLOAT_T) | (1 << ExpresionesParser.BOOL_T) | (1 << ExpresionesParser.STRING_T) | (1 << ExpresionesParser.BOOL_LIT) | (1 << ExpresionesParser.RESTA) | (1 << ExpresionesParser.NOT) | (1 << ExpresionesParser.PARENA) | (1 << ExpresionesParser.FLOAT_LIT) | (1 << ExpresionesParser.NUM) | (1 << ExpresionesParser.STRING_LIT) | (1 << ExpresionesParser.ID))) != 0):
                 self.state = 158
+=======
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 2062255439482) != 0):
+                self.state = 161
+>>>>>>> 199f34a (Actualizacion de la función visitProgram en los archivos interpreter_visitor.py y semantic_visitor.py para mostrar un mensaje de inicio de ejecución del programa, incluyendo el nombre del programa si está especificado.)
                 self.statement()
-                self.state = 163
+                self.state = 166
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
-            self.state = 164
+            self.state = 167
             self.match(ExpresionesParser.LLAVEC)
         except RecognitionException as re:
             localctx.exception = re
@@ -1633,7 +1783,7 @@ class ExpresionesParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 166
+            self.state = 169
             _la = self._input.LA(1)
             if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ExpresionesParser.INT_T) | (1 << ExpresionesParser.FLOAT_T) | (1 << ExpresionesParser.BOOL_T) | (1 << ExpresionesParser.STRING_T))) != 0)):
                 self._errHandler.recoverInline(self)
@@ -2075,17 +2225,17 @@ class ExpresionesParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 188
+            self.state = 191
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,12,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input,13,self._ctx)
             if la_ == 1:
                 localctx = ExpresionesParser.NotExprContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
 
-                self.state = 169
+                self.state = 172
                 self.match(ExpresionesParser.NOT)
-                self.state = 170
+                self.state = 173
                 self.expr(9)
                 pass
 
@@ -2093,9 +2243,9 @@ class ExpresionesParser ( Parser ):
                 localctx = ExpresionesParser.NegExprContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
-                self.state = 171
+                self.state = 174
                 self.match(ExpresionesParser.RESTA)
-                self.state = 172
+                self.state = 175
                 self.expr(8)
                 pass
 
@@ -2103,19 +2253,24 @@ class ExpresionesParser ( Parser ):
                 localctx = ExpresionesParser.FuncCallExprContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
-                self.state = 173
-                self.match(ExpresionesParser.ID)
-                self.state = 174
-                self.match(ExpresionesParser.PARENA)
                 self.state = 176
+                self.match(ExpresionesParser.ID)
+                self.state = 177
+                self.match(ExpresionesParser.PARENA)
+                self.state = 179
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
+<<<<<<< HEAD
                 if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ExpresionesParser.BOOL_LIT) | (1 << ExpresionesParser.RESTA) | (1 << ExpresionesParser.NOT) | (1 << ExpresionesParser.PARENA) | (1 << ExpresionesParser.FLOAT_LIT) | (1 << ExpresionesParser.NUM) | (1 << ExpresionesParser.STRING_LIT) | (1 << ExpresionesParser.ID))) != 0):
                     self.state = 175
+=======
+                if (((_la) & ~0x3f) == 0 and ((1 << _la) & 2062255431680) != 0):
+                    self.state = 178
+>>>>>>> 199f34a (Actualizacion de la función visitProgram en los archivos interpreter_visitor.py y semantic_visitor.py para mostrar un mensaje de inicio de ejecución del programa, incluyendo el nombre del programa si está especificado.)
                     self.argList()
 
 
-                self.state = 178
+                self.state = 181
                 self.match(ExpresionesParser.PARENC)
                 pass
 
@@ -2123,11 +2278,11 @@ class ExpresionesParser ( Parser ):
                 localctx = ExpresionesParser.ParenExprContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
-                self.state = 179
+                self.state = 182
                 self.match(ExpresionesParser.PARENA)
-                self.state = 180
+                self.state = 183
                 self.expr(0)
-                self.state = 181
+                self.state = 184
                 self.match(ExpresionesParser.PARENC)
                 pass
 
@@ -2135,7 +2290,7 @@ class ExpresionesParser ( Parser ):
                 localctx = ExpresionesParser.FloatExprContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
-                self.state = 183
+                self.state = 186
                 self.match(ExpresionesParser.FLOAT_LIT)
                 pass
 
@@ -2143,7 +2298,7 @@ class ExpresionesParser ( Parser ):
                 localctx = ExpresionesParser.NumExprContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
-                self.state = 184
+                self.state = 187
                 self.match(ExpresionesParser.NUM)
                 pass
 
@@ -2151,7 +2306,7 @@ class ExpresionesParser ( Parser ):
                 localctx = ExpresionesParser.BoolExprContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
-                self.state = 185
+                self.state = 188
                 self.match(ExpresionesParser.BOOL_LIT)
                 pass
 
@@ -2159,7 +2314,7 @@ class ExpresionesParser ( Parser ):
                 localctx = ExpresionesParser.StringExprContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
-                self.state = 186
+                self.state = 189
                 self.match(ExpresionesParser.STRING_LIT)
                 pass
 
@@ -2167,107 +2322,107 @@ class ExpresionesParser ( Parser ):
                 localctx = ExpresionesParser.IdExprContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
-                self.state = 187
+                self.state = 190
                 self.match(ExpresionesParser.ID)
                 pass
 
 
             self._ctx.stop = self._input.LT(-1)
-            self.state = 207
+            self.state = 210
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,14,self._ctx)
+            _alt = self._interp.adaptivePredict(self._input,15,self._ctx)
             while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
                 if _alt==1:
                     if self._parseListeners is not None:
                         self.triggerExitRuleEvent()
                     _prevctx = localctx
-                    self.state = 205
+                    self.state = 208
                     self._errHandler.sync(self)
-                    la_ = self._interp.adaptivePredict(self._input,13,self._ctx)
+                    la_ = self._interp.adaptivePredict(self._input,14,self._ctx)
                     if la_ == 1:
                         localctx = ExpresionesParser.MulExprContext(self, ExpresionesParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
-                        self.state = 190
+                        self.state = 193
                         if not self.precpred(self._ctx, 14):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 14)")
-                        self.state = 191
+                        self.state = 194
                         _la = self._input.LA(1)
                         if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ExpresionesParser.MULTIP) | (1 << ExpresionesParser.DIV) | (1 << ExpresionesParser.MOD))) != 0)):
                             self._errHandler.recoverInline(self)
                         else:
                             self._errHandler.reportMatch(self)
                             self.consume()
-                        self.state = 192
+                        self.state = 195
                         self.expr(15)
                         pass
 
                     elif la_ == 2:
                         localctx = ExpresionesParser.AddExprContext(self, ExpresionesParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
-                        self.state = 193
+                        self.state = 196
                         if not self.precpred(self._ctx, 13):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 13)")
-                        self.state = 194
+                        self.state = 197
                         _la = self._input.LA(1)
                         if not(_la==ExpresionesParser.SUMA or _la==ExpresionesParser.RESTA):
                             self._errHandler.recoverInline(self)
                         else:
                             self._errHandler.reportMatch(self)
                             self.consume()
-                        self.state = 195
+                        self.state = 198
                         self.expr(14)
                         pass
 
                     elif la_ == 3:
                         localctx = ExpresionesParser.RelExprContext(self, ExpresionesParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
-                        self.state = 196
+                        self.state = 199
                         if not self.precpred(self._ctx, 12):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 12)")
-                        self.state = 197
+                        self.state = 200
                         _la = self._input.LA(1)
                         if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ExpresionesParser.EQ) | (1 << ExpresionesParser.NOEQ) | (1 << ExpresionesParser.MENIQ) | (1 << ExpresionesParser.MAYIQ) | (1 << ExpresionesParser.MENOR) | (1 << ExpresionesParser.MAYOR))) != 0)):
                             self._errHandler.recoverInline(self)
                         else:
                             self._errHandler.reportMatch(self)
                             self.consume()
-                        self.state = 198
+                        self.state = 201
                         self.expr(13)
                         pass
 
                     elif la_ == 4:
                         localctx = ExpresionesParser.AndExprContext(self, ExpresionesParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
-                        self.state = 199
+                        self.state = 202
                         if not self.precpred(self._ctx, 11):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 11)")
-                        self.state = 200
+                        self.state = 203
                         self.match(ExpresionesParser.AND)
-                        self.state = 201
+                        self.state = 204
                         self.expr(12)
                         pass
 
                     elif la_ == 5:
                         localctx = ExpresionesParser.OrExprContext(self, ExpresionesParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
-                        self.state = 202
+                        self.state = 205
                         if not self.precpred(self._ctx, 10):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 10)")
-                        self.state = 203
+                        self.state = 206
                         self.match(ExpresionesParser.OR)
-                        self.state = 204
+                        self.state = 207
                         self.expr(11)
                         pass
 
              
-                self.state = 209
+                self.state = 212
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,14,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input,15,self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -2324,17 +2479,22 @@ class ExpresionesParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 210
+            self.state = 213
             self.expr(0)
-            self.state = 215
+            self.state = 218
             self._errHandler.sync(self)
             _la = self._input.LA(1)
+<<<<<<< HEAD
             while _la==ExpresionesParser.COMMA:
                 self.state = 211
+=======
+            while _la==36:
+                self.state = 214
+>>>>>>> 199f34a (Actualizacion de la función visitProgram en los archivos interpreter_visitor.py y semantic_visitor.py para mostrar un mensaje de inicio de ejecución del programa, incluyendo el nombre del programa si está especificado.)
                 self.match(ExpresionesParser.COMMA)
-                self.state = 212
+                self.state = 215
                 self.expr(0)
-                self.state = 217
+                self.state = 220
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 

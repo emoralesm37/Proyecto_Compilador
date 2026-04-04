@@ -4,7 +4,7 @@ grammar Expresiones;
 // REGLA INICIAL
 // ============================================================
 program
-    : PROGRAM LLAVEA topLevelDecl+ LLAVEC EOF
+    : PROGRAM ID? LLAVEA topLevelDecl+ LLAVEC EOF
     ;
 
 topLevelDecl
