@@ -1,49 +1,98 @@
 grammar Expresiones;
 
 // ============================================================
-// REGLA INICIAL DEL PROGRAMA
+// REGLA INICIAL
 // ============================================================
 program
-    : PROGRAM LBRACE statement* RBRACE EOF
+    : PROGRAM ID? LLAVEA topLevelDecl+ LLAVEC EOF
+    ;
+
+topLevelDecl
+    : funcDecl      # topFuncDecl
+    | statement     # topStatement
     ;
 
 // ============================================================
-// SENTENCIAS (statements)
+// DECLARACIÓN DE FUNCIONES
+// ============================================================
+funcDecl
+    : returnType ID PARENA paramList? PARENC block
+    ;
+
+returnType
+    : t_type          
+    | VOID          
+    ;
+
+paramList
+    : param (COMMA param)*
+    ;
+
+param
+    : t_type ID       
+    ;
+
+// ============================================================
+// SENTENCIAS
 // ============================================================
 statement
-    : varDecl           // int x;
-    | assignment        // x = 10;
-    | ifStatement       // if (...) { } else { }
-    | exprStatement     // expresión suelta, ej: x + 2;
+    : varDecl
+    | assignment
+    | ifStatement
+    | whileStatement
+    | forStatement
+    | returnStatement
+    | printStatement
+    | exprStatement
     ;
 
-// Declaración de variable: int x;
 varDecl
-    : type ID SEMI
+    : t_type ID (ASIGNA expr)? PCOMA  
     ;
 
-// Asignación: x = expr;
 assignment
-    : ID ASSIGN expr SEMI
+    : ID ASIGNA expr PCOMA
     ;
 
-// Expresión como sentencia: (x + y);
-exprStatement
-    : expr SEMI
-    ;
-
-// Condicional: if (expr) bloque [else bloque]
 ifStatement
-    : IF LPAREN expr RPAREN block (ELSE block)?
+    : IF PARENA expr PARENC block (ELSE block)?
     ;
 
-// Bloque de código delimitado por llaves
+whileStatement
+    : WHILE PARENA expr PARENC block
+    ;
+
+forStatement
+    : FOR PARENA forInit PCOMA expr PCOMA forUpdate PARENC block
+    ;
+
+forInit
+    : t_type ID ASIGNA expr       # forInitDecl  
+    | ID ASIGNA expr            # forInitAssign
+    ;
+
+forUpdate
+    : ID ASIGNA expr
+    ;
+
+returnStatement
+    : RETURN expr? PCOMA
+    ;
+
+printStatement
+    : PRINT PARENA expr PARENC PCOMA
+    ;
+
+exprStatement
+    : expr PCOMA
+    ;
+
 block
-    : LBRACE statement* RBRACE
+    : LLAVEA statement* LLAVEC
     ;
 
-// Tipos de datos soportados
-type
+// REGLA RENOMBRADA PARA EVITAR CONFLICTO
+t_type
     : INT_T
     | FLOAT_T
     | BOOL_T
@@ -51,102 +100,78 @@ type
     ;
 
 // ============================================================
-// EXPRESIONES — con precedencia correcta (menor a mayor)
+// EXPRESIONES
 // ============================================================
 expr
-    // Nivel 5 — Multiplicación y División
-    : expr (TIMES | DIV) expr                           # mulExpr
+    : expr (MULTIP | DIV | MOD) expr                                # mulExpr
+    | expr (SUMA | RESTA) expr                                      # addExpr
+    | expr (EQ | NOEQ | MENOR | MAYOR | MENIQ | MAYIQ) expr           # relExpr
+    | expr AND expr                                                 # andExpr
+    | expr OR expr                                                  # orExpr
+    | NOT expr                                                      # notExpr
+    | RESTA expr                                                    # negExpr
+    | ID PARENA argList? PARENC                                     # funcCallExpr
+    | PARENA expr PARENC                                            # parenExpr
+    | FLOAT_LIT                                                     # floatExpr
+    | NUM                                                           # numExpr
+    | BOOL_LIT                                                      # boolExpr
+    | STRING_LIT                                                    # stringExpr
+    | ID                                                            # idExpr
+    ;
 
-    // Nivel 4 — Suma y Resta
-    | expr (PLUS | MINUS) expr                          # addExpr
-
-    // Nivel 3 — Operadores relacionales
-    | expr (EQ | NEQ | LT | GT | LEQ | GEQ) expr       # relExpr
-
-    // Nivel 2 — AND lógico
-    | expr AND expr                                     # andExpr
-
-    // Nivel 1 — OR lógico (menor precedencia)
-    | expr OR expr                                      # orExpr
-
-    // Nivel 6 — NOT lógico (unario)
-    | NOT expr                                          # notExpr
-
-    // Nivel 7 — Negación aritmética (unario)
-    | MINUS expr                                        # negExpr
-
-    // Nivel 8 — Agrupación con paréntesis
-    | LPAREN expr RPAREN                                # parenExpr
-
-    // Nivel 9 — Literales y variables (mayor precedencia)
-    | FLOAT_LIT                                         # floatExpr
-    | NUM                                               # numExpr
-    | BOOL_LIT                                          # boolExpr
-    | ID                                                # idExpr
+argList
+    : expr (COMMA expr)*
     ;
 
 // ============================================================
-// TOKENS — Palabras reservadas
+// TOKENS
 // ============================================================
 IF       : 'if'      ;
 ELSE     : 'else'    ;
+WHILE    : 'while'   ;
+FOR      : 'for'     ;
+RETURN   : 'return'  ;
+PRINT    : 'print'   ;
 PROGRAM  : 'program' ;
+VOID     : 'void'    ;
 INT_T    : 'int'     ;
 FLOAT_T  : 'float'   ;
 BOOL_T   : 'bool'    ;
 STRING_T : 'string'  ;
 BOOL_LIT : 'true' | 'false' ;
 
-// ============================================================
-// TOKENS — Operadores aritméticos
-// ============================================================
-PLUS    : '+'  ;
-MINUS   : '-'  ;
-TIMES   : '*'  ;
-DIV     : '/'  ;
+SUMA     : '+'  ;
+RESTA    : '-'  ;
+MULTIP   : '*'  ;
+DIV      : '/'  ;
+MOD      : '%'  ;
 
-// ============================================================
-// TOKENS — Operadores relacionales
-// IMPORTANTE: definir tokens más largos ANTES que los cortos
-// Ej: '<=' antes que '<', '==' antes que '='
-// ============================================================
-EQ      : '==' ;
-NEQ     : '!=' | '<>' ;
-LEQ     : '<=' ;
-GEQ     : '>=' ;
-LT      : '<'  ;
-GT      : '>'  ;
+EQ       : '==' ;
+NOEQ     : '!=' | '<>' ;
+MENIQ    : '<=' ;
+MAYIQ    : '>=' ;
+MENOR    : '<'  ;
+MAYOR    : '>'  ;
 
-// ============================================================
-// TOKENS — Operadores lógicos
-// ============================================================
-AND     : '&&' ;
-OR      : '||' ;
-NOT     : '!'  ;
+AND      : '&&' ;
+OR       : '||' ;
+NOT      : '!'  ;
 
-// ============================================================
-// TOKENS — Símbolos de agrupación y puntuación
-// ============================================================
-ASSIGN   : '='  ;       // Operador de asignación
-LPAREN   : '('  ;
-RPAREN   : ')'  ;
-LBRACE   : '{'  ;
-RBRACE   : '}'  ;
-LBRACKET : '['  ;
-RBRACKET : ']'  ;
-SEMI     : ';'  ;
+ASIGNA   : '='  ;
+PARENA   : '('  ;
+PARENC   : ')'  ;
+LLAVEA   : '{'  ;
+LLAVEC   : '}'  ;
+CORCHETA : '['  ;
+CORCHETC : ']'  ;
+PCOMA    : ';'  ;
+COMMA    : ','  ;
 
-// ============================================================
-// TOKENS — Literales numéricos e identificadores
-// IMPORTANTE: FLOAT_LIT antes que NUM para que [0-9]+.[0-9]+
-// no sea parseado como dos enteros
-// ============================================================
-FLOAT_LIT : [0-9]+ '.' [0-9]+ ;
-NUM       : [0-9]+             ;
-ID        : [a-zA-Z_][a-zA-Z0-9_]* ;
+FLOAT_LIT  : [0-9]+ '.' [0-9]+ ;
+NUM        : [0-9]+             ;
+STRING_LIT : '"' (~["\r\n])* '"' ;
+ID         : [a-zA-Z_][a-zA-Z0-9_]* ;
 
-// ============================================================
-// IGNORAR espacios en blanco y comentarios de línea
-// ============================================================
-WS      : [ \t\r\n]+  -> skip ;
-COMMENT : '//' ~[\r\n]* -> skip ;
+WS          : [ \t\r\n]+   -> skip ;
+COMMENT       : '//' ~[\r\n]* -> skip ;
+BLOQUE_COMM : '/*' .*? '*/' -> skip ;

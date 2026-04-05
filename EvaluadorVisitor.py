@@ -31,7 +31,7 @@ class EvaluadorVisitor(ExpresionesVisitor):
         print("\n" + "=" * 50)
         print("  Fin del programa")
         print("=" * 50)
-        print("\n📊 Estado final de variables:")
+        print("\n Estado final de variables:")
         if self.variables:
             for nombre, valor in self.variables.items():
                 print(f"   {self.tipos[nombre]:8} {nombre:10} = {valor}")

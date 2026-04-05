@@ -1,0 +1,6 @@
+__pycache__/
+.antlr/
+venv/
+*.tokens
+*.interp
+env_compiladores/
