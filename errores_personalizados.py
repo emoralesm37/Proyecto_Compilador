@@ -1,6 +1,7 @@
 # ================================================================
 # custom_errors.py
 # ErrorListeners personalizados para errores léxicos y sintácticos
+# Sin cambios respecto al Proyecto 2 — reutilizado directamente
 # ================================================================
 
 from antlr4.error.ErrorListener import ErrorListener
@@ -38,7 +39,6 @@ class SintacticoErrorListener(ErrorListener):
     def syntaxError(self, recognizer, offendingSymbol, line, column, msg, e):
         simbolo = offendingSymbol.text if offendingSymbol else "<EOF>"
 
-        # Hacer el mensaje más legible
         if "missing" in msg and "at" in msg:
             esperado = msg.split("missing ")[1].split(" at")[0]
             error = (
