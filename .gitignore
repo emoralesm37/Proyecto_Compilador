@@ -4,3 +4,6 @@ venv/
 *.tokens
 *.interp
 env_compiladores/
+*.pyc
+*.Identifier
+output/
