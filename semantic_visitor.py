@@ -5,11 +5,11 @@
 # ================================================================
 
 from antlr4 import *
-from ExpresionesParser  import ExpresionesParser
-from ExpresionesVisitor import ExpresionesVisitor
+from gramatica_v3Parser  import gramatica_v3Parser
+from gramatica_v3Visitor  import gramatica_v3Visitor
 from Tabla_de_simbolos  import TablaSimbolos
 
-def visitProgram(self, ctx: ExpresionesParser.ProgramContext):
+def visitProgram(self, ctx: gramatica_v3Parser.ProgramContext):
     #obtener el nombre dle programa
     if ctx.ID():
         nombre_programa = ctx.ID().getText()
@@ -20,7 +20,7 @@ def visitProgram(self, ctx: ExpresionesParser.ProgramContext):
     print(f"  Iniciando ejecución de '{nombre_programa}'")
     print("=" * 55 + "\n")
 
-class SemanticVisitor(ExpresionesVisitor):
+class SemanticVisitor(gramatica_v3Visitor):
 
     def __init__(self):
         self.tabla            = TablaSimbolos()
@@ -64,17 +64,17 @@ class SemanticVisitor(ExpresionesVisitor):
     # PROGRAMA — dos pasadas para soportar forward references
     # ──────────────────────────────────────────────────────────
 
-    def visitProgram(self, ctx: ExpresionesParser.ProgramContext):
+    def visitProgram(self, ctx: gramatica_v3Parser.ProgramContext):
         # Pasada 1: registrar todas las funciones
         for decl in ctx.topLevelDecl():
-            if isinstance(decl, ExpresionesParser.TopFuncDeclContext):
+            if isinstance(decl, gramatica_v3Parser.TopFuncDeclContext):
                 self._registrar_funcion(decl.funcDecl())
 
         # Pasada 2: validar cuerpos y sentencias
         for decl in ctx.topLevelDecl():
             self.visit(decl)
 
-    def _registrar_funcion(self, ctx: ExpresionesParser.FuncDeclContext):
+    def _registrar_funcion(self, ctx: gramatica_v3Parser.FuncDeclContext):
         """Registra solo la firma de la función (sin visitar el cuerpo)."""
         nombre       = ctx.ID().getText()
         tipo_retorno = ctx.returnType().getText()
@@ -95,13 +95,13 @@ class SemanticVisitor(ExpresionesVisitor):
     # DECLARACIONES DE NIVEL SUPERIOR
     # ──────────────────────────────────────────────────────────
 
-    def visitTopFuncDecl(self, ctx: ExpresionesParser.TopFuncDeclContext):
+    def visitTopFuncDecl(self, ctx: gramatica_v3Parser.TopFuncDeclContext):
         self._validar_cuerpo_funcion(ctx.funcDecl())
 
-    def visitTopStatement(self, ctx: ExpresionesParser.TopStatementContext):
+    def visitTopStatement(self, ctx: gramatica_v3Parser.TopStatementContext):
         self.visit(ctx.statement())
 
-    def _validar_cuerpo_funcion(self, ctx: ExpresionesParser.FuncDeclContext):
+    def _validar_cuerpo_funcion(self, ctx: gramatica_v3Parser.FuncDeclContext):
         nombre       = ctx.ID().getText()
         tipo_retorno = ctx.returnType().getText()
 
@@ -137,7 +137,7 @@ class SemanticVisitor(ExpresionesVisitor):
     # SENTENCIAS
     # ──────────────────────────────────────────────────────────
 
-    def visitVarDecl(self, ctx: ExpresionesParser.VarDeclContext):
+    def visitVarDecl(self, ctx: gramatica_v3Parser.VarDeclContext):
         tipo = ctx.t_type().getText()
         nombre = ctx.ID().getText()
         token  = ctx.ID().getSymbol()
@@ -159,7 +159,7 @@ class SemanticVisitor(ExpresionesVisitor):
         except Exception as e:
             self.error(str(e))
 
-    def visitAssignment(self, ctx: ExpresionesParser.AssignmentContext):
+    def visitAssignment(self, ctx: gramatica_v3Parser.AssignmentContext):
         nombre = ctx.ID().getText()
         token  = ctx.ID().getSymbol()
 
@@ -178,7 +178,7 @@ class SemanticVisitor(ExpresionesVisitor):
                 token
             )
 
-    def visitIfStatement(self, ctx: ExpresionesParser.IfStatementContext):
+    def visitIfStatement(self, ctx: gramatica_v3Parser.IfStatementContext):
         self.tipo_expr(ctx.expr())   # validar condición
 
         self.tabla.push_scope()
@@ -190,14 +190,14 @@ class SemanticVisitor(ExpresionesVisitor):
             self.visit(ctx.block(1))
             self.tabla.pop_scope()
 
-    def visitWhileStatement(self, ctx: ExpresionesParser.WhileStatementContext):
+    def visitWhileStatement(self, ctx: gramatica_v3Parser.WhileStatementContext):
         self.tipo_expr(ctx.expr())
 
         self.tabla.push_scope()
         self.visit(ctx.block())
         self.tabla.pop_scope()
 
-    def visitForStatement(self, ctx: ExpresionesParser.ForStatementContext):
+    def visitForStatement(self, ctx: gramatica_v3Parser.ForStatementContext):
         self.tabla.push_scope()
         self.visit(ctx.forInit())
         self.tipo_expr(ctx.expr())
@@ -205,7 +205,7 @@ class SemanticVisitor(ExpresionesVisitor):
         self.visit(ctx.block())
         self.tabla.pop_scope()
 
-    def visitForInitDecl(self, ctx: ExpresionesParser.ForInitDeclContext):
+    def visitForInitDecl(self, ctx: gramatica_v3Parser.ForInitDeclContext):
         tipo   = ctx.t_type().getText()
         nombre = ctx.ID().getText()
         token  = ctx.ID().getSymbol()
@@ -223,19 +223,19 @@ class SemanticVisitor(ExpresionesVisitor):
         except Exception as e:
             self.error(str(e))
 
-    def visitForInitAssign(self, ctx: ExpresionesParser.ForInitAssignContext):
+    def visitForInitAssign(self, ctx: gramatica_v3Parser.ForInitAssignContext):
         nombre = ctx.ID().getText()
         token  = ctx.ID().getSymbol()
         if not self.tabla.buscar(nombre):
             self.error(f"Variable '{nombre}' no fue declarada.", token)
 
-    def visitForUpdate(self, ctx: ExpresionesParser.ForUpdateContext):
+    def visitForUpdate(self, ctx: gramatica_v3Parser.ForUpdateContext):
         nombre = ctx.ID().getText()
         token  = ctx.ID().getSymbol()
         if not self.tabla.buscar(nombre):
             self.error(f"Variable '{nombre}' no fue declarada.", token)
 
-    def visitReturnStatement(self, ctx: ExpresionesParser.ReturnStatementContext):
+    def visitReturnStatement(self, ctx: gramatica_v3Parser.ReturnStatementContext):
         token = ctx.RETURN().getSymbol()
 
         if self.funcion_actual is None:
@@ -260,13 +260,13 @@ class SemanticVisitor(ExpresionesVisitor):
                 token
             )
 
-    def visitPrintStatement(self, ctx: ExpresionesParser.PrintStatementContext):
+    def visitPrintStatement(self, ctx: gramatica_v3Parser.PrintStatementContext):
         self.tipo_expr(ctx.expr())   # solo valida que sea una expresión válida
 
-    def visitExprStatement(self, ctx: ExpresionesParser.ExprStatementContext):
+    def visitExprStatement(self, ctx: gramatica_v3Parser.ExprStatementContext):
         self.tipo_expr(ctx.expr())
 
-    def visitBlock(self, ctx: ExpresionesParser.BlockContext):
+    def visitBlock(self, ctx: gramatica_v3Parser.BlockContext):
         return self.visitChildren(ctx)
 
     # ──────────────────────────────────────────────────────────
@@ -338,7 +338,7 @@ class SemanticVisitor(ExpresionesVisitor):
 
         return None
 
-    def _validar_llamada(self, ctx: ExpresionesParser.FuncCallExprContext):
+    def _validar_llamada(self, ctx: gramatica_v3Parser.FuncCallExprContext):
         """Valida una llamada a función y retorna su tipo de retorno."""
         nombre = ctx.ID().getText()
         token  = ctx.ID().getSymbol()

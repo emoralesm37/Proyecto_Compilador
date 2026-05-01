@@ -1,0 +1,10 @@
+// ============================================================
+// Caso de prueba 3: Error sintáctico
+// Falta el ';' al final de la declaración y paréntesis mal cerrado
+// ============================================================
+
+program ErrorSintactico {
+    int x = 10        // ERROR: falta ';'
+    int y = (x + 5;   // ERROR: falta ')' antes de ';'
+    print(y);
+}

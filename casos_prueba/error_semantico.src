@@ -1,0 +1,11 @@
+// ============================================================
+// Caso de prueba 4: Error semántico
+// Variable no declarada, tipo incompatible y función no declarada
+// ============================================================
+
+program ErrorSemantico {
+    int x = 10;
+    bool flag = x + 5;     // ERROR: asignando int a bool (incompatible)
+    string s = z + "hola"; // ERROR: 'z' no fue declarada
+    print(noExiste(x));    // ERROR: función 'noExiste' no declarada
+}
