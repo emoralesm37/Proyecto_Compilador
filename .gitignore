@@ -1,6 +1,24 @@
-__pycache__/
-.antlr/
+# Entorno virtual de Python
 venv/
+env_compiladores/
+.env/
+env/
+
+# Python compilado
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# ANTLR4 archivos generados
+.antlr/
 *.tokens
 *.interp
-env_compiladores/
+
+# IDEs y editores
+.idea/
+.vscode/
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
