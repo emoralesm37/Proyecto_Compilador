@@ -23,9 +23,10 @@ from contextlib import redirect_stdout
 from antlr4 import *
 from antlr4.InputStream import InputStream
 
+from errores_personalizados import LexicoErrorListener, SintacticoErrorListener
 from gramatica_v4Lexer   import gramatica_v4Lexer
 from gramatica_v4Parser  import gramatica_v4Parser
-from custom_errors        import LexicoErrorListener, SintacticoErrorListener
+from errores_personalizados import LexicoErrorListener, SintacticoErrorListener
 from semantic_visitor_v4  import SemanticVisitor
 from tac_generator_v4     import TACGenerator
 from ir_generator_v4      import IRGenerator
@@ -404,7 +405,7 @@ def main_cli(archivo: str, generar_binarios: bool = False):
         plataformas=['linux', 'windows'] if generar_binarios else []
     )
 
-    iconos = {OK: "✓", ERROR: "✗", SKIP: "○"}
+    iconos = {OK: "OK", ERROR: "X", SKIP: "○"}
     for i, f in enumerate(resultado["fases"], 1):
         icono = iconos.get(f["estado"], "?")
         print(f"  {icono} Fase {i} — {f['nombre']:22} [{f['estado']}]  {f['tiempo_ms']:.2f} ms")

@@ -72,14 +72,27 @@ def compilar():
     generar_binarios = bool(datos.get('generar_binarios', False))
     plataformas      = datos.get('plataformas', ['linux'])
 
-    resultado = run_pipeline(
-        codigo,
-        ARCHIVO_BASE,
-        generar_binarios=generar_binarios,
-        plataformas=plataformas
+    try:
+        resultado = run_pipeline(
+            codigo,
+            ARCHIVO_BASE,
+            generar_binarios=generar_binarios,
+            plataformas=plataformas
     )
-    return jsonify(resultado)
-
+        return jsonify(resultado)
+    except Exception as e:
+        import traceback
+        tb = traceback.format_exc()
+        #imprime en consola del servidor para diagnóstico
+        print("\n[ERROR /compilar]\n" + tb)
+        return jsonify({
+            "fases": [{"nombre": "Pipeline", "estado": "ERROR",
+                        "tiempo_ms": 0, "errores": [str(e)]}],
+            "tac": "", "ir": "", "ir_opt": "", "consola": [],
+            "ir_out": [], "binarios": {}, "stats_orig": {}, "stats_opt": {},
+            "ok": False,
+            "error_detalle":  tb          
+        }), 500
 
 # ──────────────────────────────────────────────────────────────
 # OPTIMIZAR MANUAL — Passes individuales
@@ -108,11 +121,18 @@ def optimizar_manual():
     ir_texto = datos.get('ir', '')
     passes   = datos.get('passes', [])
 
+    
     if not ir_texto.strip():
         return jsonify({"error": "El código IR está vacío."}), 400
 
-    resultado = aplicar_passes(ir_texto, passes)
-    return jsonify(resultado)
+    try:
+        resultado = aplicar_passes(ir_texto, passes)
+        return jsonify(resultado)
+    except Exception as e:
+        import traceback
+        print("\n[ERROR /optimizar_manual]\n" + traceback.format_exc())
+        return jsonify({"ok": False, "error": str(e), "ir_opt": "", "diff": ""}), 500
+    
 
 
 # ──────────────────────────────────────────────────────────────

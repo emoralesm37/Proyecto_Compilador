@@ -1,22 +1,14 @@
 # ================================================================
 # optimizer.py
 # Optimizador LLVM IR — Proyecto Final
-# Usa llvmlite.binding para aplicar el nivel de optimización O3
-# sobre el módulo IR generado por ir_generator_v4.py
+# Usa el comando 'opt' vía subprocess (compatible llvmlite 0.44+)
+# 'opt' viene incluido con: sudo apt install llvm
 # ================================================================
 
 import time
-
-try:
-    import llvmlite.binding as llvm
-
-    # Inicialización única de LLVM (solo la primera vez que se importa)
-    llvm.initialize()
-    llvm.initialize_native_target()
-    llvm.initialize_native_asmprinter()
-    _LLVM_DISPONIBLE = True
-except Exception:
-    _LLVM_DISPONIBLE = False
+import subprocess
+import tempfile
+import os
 
 
 # ──────────────────────────────────────────────────────────────
@@ -25,96 +17,124 @@ except Exception:
 
 def optimizar_o3(ir_texto: str) -> dict:
     """
-    Aplica el nivel de optimización O3 de LLVM al módulo IR dado.
+    Aplica optimización O3 al IR usando el comando 'opt -O3'.
 
-    Parámetros:
-        ir_texto (str): Código LLVM IR como string (salida de IRGenerator).
-
-    Retorna un diccionario con:
-        ir_opt    (str)   : IR optimizado
-        ok        (bool)  : True si no hubo errores
-        tiempo_ms (float) : Tiempo de optimización en milisegundos
-        error     (str|None): Mensaje de error si ok=False
+    Retorna:
+        ir_opt    (str)      : IR optimizado
+        ok        (bool)     : True si no hubo errores
+        tiempo_ms (float)    : Tiempo en ms
+        error     (str|None) : Mensaje de error si ok=False
     """
-    if not _LLVM_DISPONIBLE:
+    t0 = time.perf_counter()
+
+    # Crear archivos temporales
+    fd_in, ruta_in   = tempfile.mkstemp(suffix='.ll',     prefix='ir_orig_')
+    fd_out, ruta_out = tempfile.mkstemp(suffix='_opt.ll',  prefix='ir_opt_')
+    os.close(fd_out)
+
+    try:
+        # Escribir IR original al archivo temporal
+        with os.fdopen(fd_in, 'w', encoding='utf-8') as f:
+            f.write(ir_texto)
+
+        # Ejecutar: opt -O3 -S ir_original.ll -o ir_optimizado.ll
+        res = subprocess.run(
+            ['opt', '-O3', '-S', ruta_in, '-o', ruta_out],
+            capture_output=True,
+            text=True,
+            timeout=30
+        )
+
+        t1 = time.perf_counter()
+
+        if res.returncode == 0 and os.path.exists(ruta_out):
+            with open(ruta_out, 'r', encoding='utf-8') as f:
+                ir_opt = f.read()
+            return {
+                "ir_opt":    ir_opt,
+                "ok":        True,
+                "tiempo_ms": round((t1 - t0) * 1000, 2),
+                "error":     None
+            }
+        else:
+            return {
+                "ir_opt":    ir_texto,
+                "ok":        False,
+                "tiempo_ms": round((t1 - t0) * 1000, 2),
+                "error":     f"opt falló (código {res.returncode}): {res.stderr.strip()}"
+            }
+
+    except FileNotFoundError:
+        t1 = time.perf_counter()
         return {
             "ir_opt":    ir_texto,
             "ok":        False,
-            "tiempo_ms": 0.0,
-            "error":     "llvmlite no está instalado. Ejecuta: pip install llvmlite"
-        }
-
-    t0 = time.perf_counter()
-    try:
-        # 1. Parsear el texto IR
-        mod = llvm.parse_assembly(ir_texto)
-        mod.verify()
-
-        # 2. Configurar PassManagerBuilder con nivel O3
-        pmb = llvm.PassManagerBuilder()
-        pmb.opt_level         = 3     # 0=sin optimización, 1=O1, 2=O2, 3=O3
-        pmb.loop_vectorize    = True  # vectorización de bucles
-        pmb.slp_vectorize     = True  # vectorización de expresiones (SLP)
-        pmb.inlining_threshold = 275  # umbral de inlining agresivo
-
-        # 3. Crear módulo pass manager y poblar con los passes O3
-        pm = llvm.ModulePassManager()
-        pmb.populate(pm)
-
-        # 4. Ejecutar optimización
-        pm.run(mod)
-
-        ir_opt = str(mod)
-        t1 = time.perf_counter()
-
-        return {
-            "ir_opt":    ir_opt,
-            "ok":        True,
             "tiempo_ms": round((t1 - t0) * 1000, 2),
-            "error":     None
+            "error":     "'opt' no encontrado. Instala: sudo apt install llvm"
         }
-
+    except subprocess.TimeoutExpired:
+        t1 = time.perf_counter()
+        return {
+            "ir_opt":    ir_texto,
+            "ok":        False,
+            "tiempo_ms": round((t1 - t0) * 1000, 2),
+            "error":     "opt tardó demasiado (timeout 30s)"
+        }
     except Exception as e:
         t1 = time.perf_counter()
         return {
-            "ir_opt":    ir_texto,   # devolver el original si falla
+            "ir_opt":    ir_texto,
             "ok":        False,
             "tiempo_ms": round((t1 - t0) * 1000, 2),
             "error":     str(e)
         }
+    finally:
+        for ruta in [ruta_in, ruta_out]:
+            try:
+                if os.path.exists(ruta):
+                    os.remove(ruta)
+            except Exception:
+                pass
 
 
 # ──────────────────────────────────────────────────────────────
 # FUNCIÓN AUXILIAR: estadisticas_ir
-# Cuenta instrucciones y bloques básicos en un módulo IR
+# Cuenta instrucciones y bloques en el texto IR
 # ──────────────────────────────────────────────────────────────
 
 def estadisticas_ir(ir_texto: str) -> dict:
     """
-    Devuelve estadísticas básicas del IR (instrucciones, bloques, funciones).
-    Útil para comparar antes y después de la optimización.
+    Cuenta funciones, bloques básicos e instrucciones en el IR.
+    Usa análisis de texto (no depende de llvmlite).
     """
-    if not _LLVM_DISPONIBLE or not ir_texto:
+    if not ir_texto:
         return {"funciones": 0, "bloques": 0, "instrucciones": 0}
 
-    try:
-        mod = llvm.parse_assembly(ir_texto)
-        funciones    = 0
-        bloques      = 0
-        instrucciones = 0
+    funciones     = 0
+    bloques       = 0
+    instrucciones = 0
 
-        for func in mod.functions:
-            if not func.is_declaration:
-                funciones += 1
-                for blk in func.blocks:
-                    bloques += 1
-                    for _ in blk.instructions:
-                        instrucciones += 1
+    for linea in ir_texto.splitlines():
+        linea_strip = linea.strip()
+        if linea_strip.startswith('define '):
+            funciones += 1
+        elif linea_strip.endswith(':') and not linea_strip.startswith(';'):
+            # Etiqueta de bloque básico
+            bloques += 1
+        elif linea_strip and not linea_strip.startswith(';') \
+                and not linea_strip.startswith('@') \
+                and not linea_strip.startswith('%') \
+                and not linea_strip.startswith('}') \
+                and not linea_strip.startswith('{') \
+                and '=' in linea_strip or linea_strip.startswith('store ') \
+                or linea_strip.startswith('ret ') \
+                or linea_strip.startswith('br ') \
+                or linea_strip.startswith('call ') \
+                or linea_strip.startswith('switch '):
+            instrucciones += 1
 
-        return {
-            "funciones":     funciones,
-            "bloques":       bloques,
-            "instrucciones": instrucciones
-        }
-    except Exception:
-        return {"funciones": 0, "bloques": 0, "instrucciones": 0}
+    return {
+        "funciones":     funciones,
+        "bloques":       bloques,
+        "instrucciones": instrucciones
+    }
