@@ -1,6 +1,23 @@
+# Entorno virtual y archivos compilador por Python
 __pycache__/
 .antlr/
 venv/
+*.pyc
+*.pyo
+*.pyd
 *.tokens
 *.interp
 env_compiladores/
+
+# VS Code
+.vscode/
+
+# Logs
+*.log
+
+# Cache llvmlite
+.cache/
+
+# Temporales
+tmp/
+temp/
