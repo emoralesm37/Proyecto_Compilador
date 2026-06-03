@@ -270,46 +270,49 @@ class InterpreterVisitor(gramatica_v4Visitor):
     def visitSwitchStatement(self, ctx: gramatica_v4Parser.SwitchStatementContext):
         """
         switch(expr) { case v1: ...; case v2: ...; default: ...; }
-        Implementado con cadena de if/elif en Python.
-        Soporta break (BreakSignal) dentro de cada case.
+        Usa try/finally en cada case para garantizar que push_scope
+        siempre tenga su pop_scope correspondiente (evita scope leaks).
         """
         valor_control = self.visit(ctx.expr())
         print(f"  [SWITCH] valor de control = {valor_control!r}")
 
         encontrado = False
-        try:
-            for case_clause in ctx.caseClause():
-                valor_case = self.visit(case_clause.expr())
-                if not encontrado and valor_control == valor_case:
-                    encontrado = True
-                    print(f"  [SWITCH] match en case {valor_case!r}")
-                # Fall-through: si ya encontramos un case, ejecutar también los siguientes
-                if encontrado:
-                    self.tabla.push_scope()
-                    try:
-                        for stmt in case_clause.statement():
-                            self.visit(stmt)
-                    except BreakSignal:
-                        self.tabla.pop_scope()
-                        print("  [SWITCH] break — saliendo del switch")
-                        return
-                    self.tabla.pop_scope()
 
-            # Ejecutar default si ningún case coincidió
-            if not encontrado and ctx.defaultClause():
-                print("  [SWITCH] ejecutando default")
+        for case_clause in ctx.caseClause():
+            valor_case = self.visit(case_clause.expr())
+            if not encontrado and valor_control == valor_case:
+                encontrado = True
+                print(f"  [SWITCH] match en case {valor_case!r}")
+            # Fall-through: ejecutar desde el primer case que coincide
+            if encontrado:
                 self.tabla.push_scope()
+                salir = False
                 try:
-                    for stmt in ctx.defaultClause().statement():
+                    for stmt in case_clause.statement():
                         self.visit(stmt)
                 except BreakSignal:
-                    self.tabla.pop_scope()
-                    print("  [SWITCH] break — saliendo del switch (default)")
+                    salir = True
+                finally:
+                    self.tabla.pop_scope()   # siempre se ejecuta
+                if salir:
+                    print("  [SWITCH] break — saliendo del switch")
                     return
-                self.tabla.pop_scope()
 
-        except BreakSignal:
-            print("  [SWITCH] break — saliendo del switch")
+        # Bloque default si ningún case coincidió
+        if not encontrado and ctx.defaultClause():
+            print("  [SWITCH] ejecutando default")
+            self.tabla.push_scope()
+            salir_def = False
+            try:
+                for stmt in ctx.defaultClause().statement():
+                    self.visit(stmt)
+            except BreakSignal:
+                salir_def = True
+            finally:
+                self.tabla.pop_scope()
+            if salir_def:
+                print("  [SWITCH] break — saliendo del switch (default)")
+                return
 
     def visitForInitDecl(self, ctx: gramatica_v4Parser.ForInitDeclContext):
         tipo   = ctx.t_type().getText()

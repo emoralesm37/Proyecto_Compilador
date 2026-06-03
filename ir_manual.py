@@ -239,3 +239,4 @@ def lista_passes_disponibles() -> list:
         {"key": clave, "descripcion": desc, "tipo": "opt"}
         for clave, (desc, _) in PASSES_INFO.items()
     ]
+

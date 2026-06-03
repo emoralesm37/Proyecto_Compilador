@@ -31,7 +31,7 @@ from semantic_visitor_v4  import SemanticVisitor
 from tac_generator_v4     import TACGenerator
 from ir_generator_v4      import IRGenerator
 from interpreter_visitor_v4 import InterpreterVisitor
-from optimizer            import optimizar_o3
+from optimizer_VA            import optimizar_o3
 
 
 # ──────────────────────────────────────────────────────────────
@@ -214,7 +214,7 @@ def run_pipeline(codigo: str,
     # ──────────────────────────────────────────────────────────
     t0 = time.perf_counter()
     try:
-        from optimizer import estadisticas_ir
+        from optimizer_VA import estadisticas_ir
         resultado["stats_orig"] = estadisticas_ir(ir_texto)
 
         opt_result = optimizar_o3(ir_texto)
@@ -395,7 +395,7 @@ def main_cli(archivo: str, generar_binarios: bool = False):
         with open(archivo, 'r', encoding='utf-8') as f:
             codigo = f.read()
     except FileNotFoundError:
-        print(f"  ✗ No se encontró el archivo: '{archivo}'")
+        print(f"  X No se encontró el archivo: '{archivo}'")
         sys.exit(1)
 
     archivo_base = os.path.splitext(archivo)[0]
@@ -428,10 +428,10 @@ def main_cli(archivo: str, generar_binarios: bool = False):
 
     if resultado["ok"]:
         print("\n" + "═" * 60)
-        print("  ✓ Pipeline completado exitosamente.")
+        print("  OK - Pipeline completado exitosamente.")
         print("═" * 60)
     else:
-        print("\n  ✗ Pipeline detenido por errores.")
+        print("\n  X - Pipeline detenido por errores.")
 
 
 if __name__ == '__main__':

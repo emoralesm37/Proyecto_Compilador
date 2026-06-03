@@ -1,78 +1,143 @@
-; ModuleID = '/tmp/ir_orig_1tdjccjd.ll'
-source_filename = "/tmp/ir_orig_1tdjccjd.ll"
-target datalayout = "e-m:e-p270:32:32-p271:32:32-p272:64:64-i64:64-i128:128-f80:128-n8:16:32:64-S128"
+; ModuleID = "programa_v4"
 target triple = "x86_64-pc-linux-gnu"
+target datalayout = ""
 
-@.str1 = internal constant [17 x i8] c"Fibonacci(10) = \00"
-@.str5 = internal constant [4 x i8] c"%d\0A\00"
-@.str6 = internal constant [12 x i8] c"Suma 1..10:\00"
-@.str10 = internal constant [4 x i8] c"%d\0A\00"
-@.str11 = internal constant [25 x i8] c"Total pares del arreglo:\00"
-@.str15 = internal constant [4 x i8] c"%d\0A\00"
+declare i32 @"printf"(i8* %".1", ...)
 
-; Function Attrs: nofree nounwind
-declare noundef i32 @printf(ptr nocapture noundef readonly, ...) local_unnamed_addr #0
-
-; Function Attrs: nofree nosync nounwind memory(none)
-define i32 @fibonacci(i32 %.1) local_unnamed_addr #1 {
+define i32 @"fibonacci"(i32 %".1")
+{
 entry:
-  %.54 = icmp slt i32 %.1, 2
-  br i1 %.54, label %common.ret, label %if_end
-
-common.ret:                                       ; preds = %if_end, %entry
-  %accumulator.tr.lcssa = phi i32 [ 0, %entry ], [ %.16, %if_end ]
-  %.1.tr.lcssa = phi i32 [ %.1, %entry ], [ %.14, %if_end ]
-  %accumulator.ret.tr = add i32 %.1.tr.lcssa, %accumulator.tr.lcssa
-  ret i32 %accumulator.ret.tr
-
-if_end:                                           ; preds = %entry, %if_end
-  %.1.tr6 = phi i32 [ %.14, %if_end ], [ %.1, %entry ]
-  %accumulator.tr5 = phi i32 [ %.16, %if_end ], [ 0, %entry ]
-  %.11 = add nsw i32 %.1.tr6, -1
-  %.12 = tail call i32 @fibonacci(i32 %.11)
-  %.14 = add nsw i32 %.1.tr6, -2
-  %.16 = add i32 %.12, %accumulator.tr5
-  %.5 = icmp ult i32 %.1.tr6, 4
-  br i1 %.5, label %common.ret, label %if_end
+  %"n" = alloca i32
+  store i32 %".1", i32* %"n"
+  %".4" = load i32, i32* %"n"
+  %".5" = icmp sle i32 %".4", 1
+  br i1 %".5", label %"if_true", label %"if_false"
+if_true:
+  %".7" = load i32, i32* %"n"
+  ret i32 %".7"
+if_false:
+  br label %"if_end"
+if_end:
+  %".10" = load i32, i32* %"n"
+  %".11" = sub i32 %".10", 1
+  %".12" = call i32 @"fibonacci"(i32 %".11")
+  %".13" = load i32, i32* %"n"
+  %".14" = sub i32 %".13", 2
+  %".15" = call i32 @"fibonacci"(i32 %".14")
+  %".16" = add i32 %".12", %".15"
+  ret i32 %".16"
 }
 
-; Function Attrs: nofree nounwind
-define noundef i32 @main() local_unnamed_addr #0 {
+define i32 @"main"()
+{
 entry:
-  %nums = alloca [5 x i32], align 16
-  store <4 x i32> <i32 3, i32 1, i32 4, i32 1>, ptr %nums, align 16
-  %.10 = getelementptr inbounds [5 x i32], ptr %nums, i64 0, i64 4
-  store i32 5, ptr %.10, align 16
-  br label %while_body
-
-while_body:                                       ; preds = %entry, %while_body
-  %indvars.iv = phi i64 [ 0, %entry ], [ %indvars.iv.next, %while_body ]
-  %total.0 = phi i32 [ 0, %entry ], [ %spec.select, %while_body ]
-  %.19 = getelementptr inbounds [5 x i32], ptr %nums, i64 0, i64 %indvars.iv
-  %.20 = load i32, ptr %.19, align 4
-  %0 = and i32 %.20, 1
-  %.24 = icmp eq i32 %0, 0
-  %.30 = select i1 %.24, i32 %.20, i32 0
-  %spec.select = add i32 %.30, %total.0
-  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
-  %.38 = icmp slt i32 %spec.select, 11
-  %.16 = icmp ult i64 %indvars.iv, 4
-  %or.cond = and i1 %.16, %.38
-  br i1 %or.cond, label %while_body, label %for_cond.preheader
-
-for_cond.preheader:                               ; preds = %while_body
-  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @.str1)
-  %.64 = tail call i32 @fibonacci(i32 10)
-  %.66 = tail call i32 (ptr, ...) @printf(ptr nonnull dereferenceable(1) @.str5, i32 %.64)
-  %puts10 = tail call i32 @puts(ptr nonnull dereferenceable(1) @.str6)
-  %.72 = tail call i32 (ptr, ...) @printf(ptr nonnull dereferenceable(1) @.str10, i32 55)
-  %puts11 = tail call i32 @puts(ptr nonnull dereferenceable(1) @.str11)
-  %.78 = tail call i32 (ptr, ...) @printf(ptr nonnull dereferenceable(1) @.str15, i32 %spec.select)
+  %"nums" = alloca [5 x i32]
+  %".2" = getelementptr inbounds [5 x i32], [5 x i32]* %"nums", i32 0, i32 0
+  store i32 3, i32* %".2"
+  %".4" = getelementptr inbounds [5 x i32], [5 x i32]* %"nums", i32 0, i32 1
+  store i32 1, i32* %".4"
+  %".6" = getelementptr inbounds [5 x i32], [5 x i32]* %"nums", i32 0, i32 2
+  store i32 4, i32* %".6"
+  %".8" = getelementptr inbounds [5 x i32], [5 x i32]* %"nums", i32 0, i32 3
+  store i32 1, i32* %".8"
+  %".10" = getelementptr inbounds [5 x i32], [5 x i32]* %"nums", i32 0, i32 4
+  store i32 5, i32* %".10"
+  %"total" = alloca i32
+  store i32 0, i32* %"total"
+  %"i" = alloca i32
+  store i32 0, i32* %"i"
+  %"r" = alloca i32
+  %"suma" = alloca i32
+  %"j" = alloca i32
+  %"msg" = alloca i8*
+  br label %"while_cond"
+while_cond:
+  %".15" = load i32, i32* %"i"
+  %".16" = icmp slt i32 %".15", 5
+  br i1 %".16", label %"while_body", label %"while_end"
+while_body:
+  %".18" = load i32, i32* %"i"
+  %".19" = getelementptr inbounds [5 x i32], [5 x i32]* %"nums", i32 0, i32 %".18"
+  %".20" = load i32, i32* %".19"
+  %".21" = srem i32 %".20", 2
+  store i32 %".21", i32* %"r"
+  %".23" = load i32, i32* %"r"
+  %".24" = icmp eq i32 %".23", 0
+  br i1 %".24", label %"if_true", label %"if_false"
+while_end:
+  store i32 0, i32* %"suma"
+  store i32 1, i32* %"j"
+  br label %"for_cond"
+if_true:
+  %".26" = load i32, i32* %"total"
+  %".27" = load i32, i32* %"i"
+  %".28" = getelementptr inbounds [5 x i32], [5 x i32]* %"nums", i32 0, i32 %".27"
+  %".29" = load i32, i32* %".28"
+  %".30" = add i32 %".26", %".29"
+  store i32 %".30", i32* %"total"
+  br label %"if_end"
+if_false:
+  br label %"if_end"
+if_end:
+  %".34" = load i32, i32* %"i"
+  %".35" = add i32 %".34", 1
+  store i32 %".35", i32* %"i"
+  %".37" = load i32, i32* %"total"
+  %".38" = icmp sgt i32 %".37", 10
+  br i1 %".38", label %"if_true.1", label %"if_false.1"
+if_true.1:
+  br label %"while_end"
+if_false.1:
+  br label %"if_end.1"
+if_end.1:
+  br label %"while_cond"
+after_break:
+  br label %"if_end.1"
+for_cond:
+  %".47" = load i32, i32* %"j"
+  %".48" = icmp sle i32 %".47", 10
+  br i1 %".48", label %"for_body", label %"for_end"
+for_body:
+  %".50" = load i32, i32* %"suma"
+  %".51" = load i32, i32* %"j"
+  %".52" = add i32 %".50", %".51"
+  store i32 %".52", i32* %"suma"
+  br label %"for_update"
+for_update:
+  %".55" = load i32, i32* %"j"
+  %".56" = add i32 %".55", 1
+  store i32 %".56", i32* %"j"
+  br label %"for_cond"
+for_end:
+  %".59" = getelementptr inbounds [17 x i8], [17 x i8]* @".str1", i32 0, i32 0
+  store i8* %".59", i8** %"msg"
+  %".61" = load i8*, i8** %"msg"
+  %".62" = getelementptr inbounds [4 x i8], [4 x i8]* @".str3", i32 0, i32 0
+  %".63" = call i32 (i8*, ...) @"printf"(i8* %".62", i8* %".61")
+  %".64" = call i32 @"fibonacci"(i32 10)
+  %".65" = getelementptr inbounds [4 x i8], [4 x i8]* @".str5", i32 0, i32 0
+  %".66" = call i32 (i8*, ...) @"printf"(i8* %".65", i32 %".64")
+  %".67" = getelementptr inbounds [12 x i8], [12 x i8]* @".str6", i32 0, i32 0
+  %".68" = getelementptr inbounds [4 x i8], [4 x i8]* @".str8", i32 0, i32 0
+  %".69" = call i32 (i8*, ...) @"printf"(i8* %".68", i8* %".67")
+  %".70" = load i32, i32* %"suma"
+  %".71" = getelementptr inbounds [4 x i8], [4 x i8]* @".str10", i32 0, i32 0
+  %".72" = call i32 (i8*, ...) @"printf"(i8* %".71", i32 %".70")
+  %".73" = getelementptr inbounds [25 x i8], [25 x i8]* @".str11", i32 0, i32 0
+  %".74" = getelementptr inbounds [4 x i8], [4 x i8]* @".str13", i32 0, i32 0
+  %".75" = call i32 (i8*, ...) @"printf"(i8* %".74", i8* %".73")
+  %".76" = load i32, i32* %"total"
+  %".77" = getelementptr inbounds [4 x i8], [4 x i8]* @".str15", i32 0, i32 0
+  %".78" = call i32 (i8*, ...) @"printf"(i8* %".77", i32 %".76")
   ret i32 0
 }
 
-; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #0
-
-attributes #0 = { nofree nounwind }
-attributes #1 = { nofree nosync nounwind memory(none) }
+@".str1" = internal constant [17 x i8] c"Fibonacci(10) = \00"
+@".str3" = internal constant [4 x i8] c"%s\0a\00"
+@".str5" = internal constant [4 x i8] c"%d\0a\00"
+@".str6" = internal constant [12 x i8] c"Suma 1..10:\00"
+@".str8" = internal constant [4 x i8] c"%s\0a\00"
+@".str10" = internal constant [4 x i8] c"%d\0a\00"
+@".str11" = internal constant [25 x i8] c"Total pares del arreglo:\00"
+@".str13" = internal constant [4 x i8] c"%s\0a\00"
+@".str15" = internal constant [4 x i8] c"%d\0a\00"
