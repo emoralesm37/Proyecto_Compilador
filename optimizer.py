@@ -1,26 +1,17 @@
 # ================================================================
 # optimizer.py
 # Optimizador LLVM IR — Proyecto Final
-# Usa el comando 'opt' vía subprocess (compatible llvmlite 0.44+)
-# 'opt' viene incluido con: sudo apt install llvm
+# Usa el comando 'opt -O3' vía subprocess.
+# Compatible con llvmlite 0.44+ (PassManagerBuilder fue removido).
+# Requiere: sudo apt install llvm  (para tener el comando 'opt')
 # ================================================================
 
 import time
 import subprocess
 import tempfile
 import os
-"""
-try:
-    import llvmlite.binding as llvm
 
-    # Inicialización única de LLVM (solo la primera vez que se importa)
-    llvm.initialize()
-    llvm.initialize_native_target()
-    llvm.initialize_native_asmprinter()
-    _LLVM_DISPONIBLE = True
-except Exception:
-    _LLVM_DISPONIBLE = False"""
-    
+
 # ──────────────────────────────────────────────────────────────
 # FUNCIÓN PRINCIPAL: optimizar_o3
 # ──────────────────────────────────────────────────────────────
@@ -37,17 +28,16 @@ def optimizar_o3(ir_texto: str) -> dict:
     """
     t0 = time.perf_counter()
 
-    # Crear archivos temporales
-    fd_in, ruta_in   = tempfile.mkstemp(suffix='.ll',     prefix='ir_orig_')
-    fd_out, ruta_out = tempfile.mkstemp(suffix='_opt.ll',  prefix='ir_opt_')
+    fd_in,  ruta_in  = tempfile.mkstemp(suffix='.ll',    prefix='ir_orig_')
+    fd_out, ruta_out = tempfile.mkstemp(suffix='_opt.ll', prefix='ir_opt_')
     os.close(fd_out)
 
     try:
-        # Escribir IR original al archivo temporal
+        # Escribir el IR original al archivo temporal
         with os.fdopen(fd_in, 'w', encoding='utf-8') as f:
             f.write(ir_texto)
 
-        # Ejecutar: opt -O3 -S ir_original.ll -o ir_optimizado.ll
+        # opt -O3 -S ir_original.ll -o ir_optimizado.ll
         res = subprocess.run(
             ['opt', '-O3', '-S', ruta_in, '-o', ruta_out],
             capture_output=True,
@@ -80,7 +70,7 @@ def optimizar_o3(ir_texto: str) -> dict:
             "ir_opt":    ir_texto,
             "ok":        False,
             "tiempo_ms": round((t1 - t0) * 1000, 2),
-            "error":     "'opt' no encontrado. Instala: sudo apt install llvm"
+            "error":     "'opt' no encontrado. Instala con: sudo apt install llvm"
         }
     except subprocess.TimeoutExpired:
         t1 = time.perf_counter()
@@ -109,14 +99,12 @@ def optimizar_o3(ir_texto: str) -> dict:
 
 # ──────────────────────────────────────────────────────────────
 # FUNCIÓN AUXILIAR: estadisticas_ir
-# Cuenta instrucciones y bloques en el texto IR
+# Cuenta instrucciones/bloques analizando el texto del IR
+# (no depende de llvmlite para mayor compatibilidad)
 # ──────────────────────────────────────────────────────────────
 
 def estadisticas_ir(ir_texto: str) -> dict:
-    """
-    Cuenta funciones, bloques básicos e instrucciones en el IR.
-    Usa análisis de texto (no depende de llvmlite).
-    """
+    """Cuenta funciones, bloques e instrucciones en el texto IR."""
     if not ir_texto:
         return {"funciones": 0, "bloques": 0, "instrucciones": 0}
 
@@ -125,22 +113,18 @@ def estadisticas_ir(ir_texto: str) -> dict:
     instrucciones = 0
 
     for linea in ir_texto.splitlines():
-        linea_strip = linea.strip()
-        if linea_strip.startswith('define '):
+        s = linea.strip()
+        if s.startswith('define '):
             funciones += 1
-        elif linea_strip.endswith(':') and not linea_strip.startswith(';'):
-            # Etiqueta de bloque básico
+        elif s.endswith(':') and not s.startswith(';') and not s.startswith('@'):
             bloques += 1
-        elif linea_strip and not linea_strip.startswith(';') \
-                and not linea_strip.startswith('@') \
-                and not linea_strip.startswith('%') \
-                and not linea_strip.startswith('}') \
-                and not linea_strip.startswith('{') \
-                and '=' in linea_strip or linea_strip.startswith('store ') \
-                or linea_strip.startswith('ret ') \
-                or linea_strip.startswith('br ') \
-                or linea_strip.startswith('call ') \
-                or linea_strip.startswith('switch '):
+        elif (s and not s.startswith(';') and not s.startswith('}')
+              and not s.startswith('{') and not s.startswith('@')
+              and not s.startswith('define') and not s.startswith('declare')
+              and not s.startswith('target') and not s.startswith('%')
+              and ('=' in s or s.startswith('store ')
+                   or s.startswith('ret ') or s.startswith('br ')
+                   or s.startswith('call ') or s.startswith('switch '))):
             instrucciones += 1
 
     return {

@@ -1,4 +1,4 @@
-; ModuleID = "programa"
+; ModuleID = "programa_v4"
 target triple = "x86_64-pc-linux-gnu"
 target datalayout = ""
 
@@ -112,32 +112,32 @@ for_end:
   %".59" = getelementptr inbounds [17 x i8], [17 x i8]* @".str1", i32 0, i32 0
   store i8* %".59", i8** %"msg"
   %".61" = load i8*, i8** %"msg"
-  %".62" = getelementptr inbounds [4 x i8], [4 x i8]* @".fmt2", i32 0, i32 0
+  %".62" = getelementptr inbounds [4 x i8], [4 x i8]* @".str3", i32 0, i32 0
   %".63" = call i32 (i8*, ...) @"printf"(i8* %".62", i8* %".61")
   %".64" = call i32 @"fibonacci"(i32 10)
-  %".65" = getelementptr inbounds [4 x i8], [4 x i8]* @".fmt3", i32 0, i32 0
+  %".65" = getelementptr inbounds [4 x i8], [4 x i8]* @".str5", i32 0, i32 0
   %".66" = call i32 (i8*, ...) @"printf"(i8* %".65", i32 %".64")
-  %".67" = getelementptr inbounds [12 x i8], [12 x i8]* @".str4", i32 0, i32 0
-  %".68" = getelementptr inbounds [4 x i8], [4 x i8]* @".fmt5", i32 0, i32 0
+  %".67" = getelementptr inbounds [12 x i8], [12 x i8]* @".str6", i32 0, i32 0
+  %".68" = getelementptr inbounds [4 x i8], [4 x i8]* @".str8", i32 0, i32 0
   %".69" = call i32 (i8*, ...) @"printf"(i8* %".68", i8* %".67")
   %".70" = load i32, i32* %"suma"
-  %".71" = getelementptr inbounds [4 x i8], [4 x i8]* @".fmt6", i32 0, i32 0
+  %".71" = getelementptr inbounds [4 x i8], [4 x i8]* @".str10", i32 0, i32 0
   %".72" = call i32 (i8*, ...) @"printf"(i8* %".71", i32 %".70")
-  %".73" = getelementptr inbounds [25 x i8], [25 x i8]* @".str7", i32 0, i32 0
-  %".74" = getelementptr inbounds [4 x i8], [4 x i8]* @".fmt8", i32 0, i32 0
+  %".73" = getelementptr inbounds [25 x i8], [25 x i8]* @".str11", i32 0, i32 0
+  %".74" = getelementptr inbounds [4 x i8], [4 x i8]* @".str13", i32 0, i32 0
   %".75" = call i32 (i8*, ...) @"printf"(i8* %".74", i8* %".73")
   %".76" = load i32, i32* %"total"
-  %".77" = getelementptr inbounds [4 x i8], [4 x i8]* @".fmt9", i32 0, i32 0
+  %".77" = getelementptr inbounds [4 x i8], [4 x i8]* @".str15", i32 0, i32 0
   %".78" = call i32 (i8*, ...) @"printf"(i8* %".77", i32 %".76")
   ret i32 0
 }
 
 @".str1" = internal constant [17 x i8] c"Fibonacci(10) = \00"
-@".fmt2" = internal constant [4 x i8] c"%s\0a\00"
-@".fmt3" = internal constant [4 x i8] c"%d\0a\00"
-@".str4" = internal constant [12 x i8] c"Suma 1..10:\00"
-@".fmt5" = internal constant [4 x i8] c"%s\0a\00"
-@".fmt6" = internal constant [4 x i8] c"%d\0a\00"
-@".str7" = internal constant [25 x i8] c"Total pares del arreglo:\00"
-@".fmt8" = internal constant [4 x i8] c"%s\0a\00"
-@".fmt9" = internal constant [4 x i8] c"%d\0a\00"
+@".str3" = internal constant [4 x i8] c"%s\0a\00"
+@".str5" = internal constant [4 x i8] c"%d\0a\00"
+@".str6" = internal constant [12 x i8] c"Suma 1..10:\00"
+@".str8" = internal constant [4 x i8] c"%s\0a\00"
+@".str10" = internal constant [4 x i8] c"%d\0a\00"
+@".str11" = internal constant [25 x i8] c"Total pares del arreglo:\00"
+@".str13" = internal constant [4 x i8] c"%s\0a\00"
+@".str15" = internal constant [4 x i8] c"%d\0a\00"

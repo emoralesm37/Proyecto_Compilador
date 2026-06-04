@@ -13,7 +13,7 @@ from flask import Flask, render_template, request, jsonify
 # Asegurar que el directorio actual esté en el path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from pipeline import run_pipeline
+from pipeline_back import run_pipeline
 
 app = Flask(__name__)
 
