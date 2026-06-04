@@ -18,7 +18,7 @@ from flask import Flask, render_template, request, jsonify, send_file
 # Asegurar que el directorio del script esté en el path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from pipeline import run_pipeline
+from pipeline_v4 import run_pipeline
 from ir_manual   import aplicar_passes, lista_passes_disponibles
 
 app = Flask(__name__)
@@ -157,7 +157,7 @@ def generar_binario():
             ok:       bool
         }
     """
-    from pipeline import _generar_binario
+    from pipeline_v4 import _generar_binario
 
     datos = request.get_json(silent=True)
     if not datos or 'ir' not in datos:

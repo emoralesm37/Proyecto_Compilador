@@ -23,7 +23,6 @@ from contextlib import redirect_stdout
 from antlr4 import *
 from antlr4.InputStream import InputStream
 
-from errores_personalizados import LexicoErrorListener, SintacticoErrorListener
 from gramatica_v4Lexer   import gramatica_v4Lexer
 from gramatica_v4Parser  import gramatica_v4Parser
 from errores_personalizados import LexicoErrorListener, SintacticoErrorListener
@@ -31,7 +30,7 @@ from semantic_visitor_v4  import SemanticVisitor
 from tac_generator_v4     import TACGenerator
 from ir_generator_v4      import IRGenerator
 from interpreter_visitor_v4 import InterpreterVisitor
-from optimizer_VA            import optimizar_o3
+from optimizer            import optimizar_o3
 
 
 # ──────────────────────────────────────────────────────────────
@@ -214,7 +213,7 @@ def run_pipeline(codigo: str,
     # ──────────────────────────────────────────────────────────
     t0 = time.perf_counter()
     try:
-        from optimizer_VA import estadisticas_ir
+        from optimizer import estadisticas_ir
         resultado["stats_orig"] = estadisticas_ir(ir_texto)
 
         opt_result = optimizar_o3(ir_texto)

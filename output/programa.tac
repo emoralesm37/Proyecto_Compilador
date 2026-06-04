@@ -20,11 +20,11 @@ L2:
 end_func fibonacci
 
 # --- Código principal ---
-    nums = [3, 1, 4, 1, 5, 8]
+    nums = [3, 1, 4, 1, 5]
     total = 0
     i = 0
 L3:
-    t7 = i < 6
+    t7 = i < 5
     if t7 goto L4
     goto L5
 L4:
@@ -52,7 +52,7 @@ L5:
     suma = 0
     j = 1
 L10:
-    t15 = j <= 11
+    t15 = j <= 10
     if t15 goto L11
     goto L13
 L11:
