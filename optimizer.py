@@ -10,7 +10,17 @@ import subprocess
 import tempfile
 import os
 
+try:
+    import llvmlite.binding as llvm
 
+    # Inicialización única de LLVM (solo la primera vez que se importa)
+    llvm.initialize()
+    llvm.initialize_native_target()
+    llvm.initialize_native_asmprinter()
+    _LLVM_DISPONIBLE = True
+except Exception:
+    _LLVM_DISPONIBLE = False
+    
 # ──────────────────────────────────────────────────────────────
 # FUNCIÓN PRINCIPAL: optimizar_o3
 # ──────────────────────────────────────────────────────────────
