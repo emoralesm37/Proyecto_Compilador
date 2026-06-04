@@ -9,7 +9,7 @@ import time
 import subprocess
 import tempfile
 import os
-
+"""
 try:
     import llvmlite.binding as llvm
 
@@ -19,7 +19,7 @@ try:
     llvm.initialize_native_asmprinter()
     _LLVM_DISPONIBLE = True
 except Exception:
-    _LLVM_DISPONIBLE = False
+    _LLVM_DISPONIBLE = False"""
     
 # ──────────────────────────────────────────────────────────────
 # FUNCIÓN PRINCIPAL: optimizar_o3
