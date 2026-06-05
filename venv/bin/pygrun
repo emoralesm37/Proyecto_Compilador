@@ -1,4 +1,4 @@
-#!/home/edwinmm/Proyecto_Compilador/venv/bin/python3.12
+#!/home/julissa/Proyecto_Compilador/venv/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys
