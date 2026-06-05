@@ -52,7 +52,7 @@ L5:
     suma = 0
     j = 1
 L10:
-    t15 = j <= 10
+    t15 = j <= 12
     if t15 goto L11
     goto L13
 L11:

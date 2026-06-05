@@ -95,7 +95,7 @@ after_break:
   br label %"if_end.1"
 for_cond:
   %".47" = load i32, i32* %"j"
-  %".48" = icmp sle i32 %".47", 10
+  %".48" = icmp sle i32 %".47", 12
   br i1 %".48", label %"for_body", label %"for_end"
 for_body:
   %".50" = load i32, i32* %"suma"
