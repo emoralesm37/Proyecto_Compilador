@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Compilador v4 — Proyecto Final</title>
+  <style>
+    /* =====================================================
+       VARIABLES Y RESET
+    ===================================================== */
+    :root {
+      --bg-base:     #0d1117;
+      --bg-panel:    #161b22;
+      --bg-tab:      #21262d;
+      --bg-input:    #0d1117;
+      --border:      #30363d;
+      --text-main:   #c9d1d9;
+      --text-dim:    #8b949e;
+      --text-head:   #f0f6fc;
+      --accent:      #58a6ff;
+      --green:       #3fb950;
+      --red:         #f85149;
+      --yellow:      #d29922;
+      --orange:      #e3b341;
+      --tab-active:  #58a6ff;
+      --radius:      6px;
+      --font-code:   'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+      --font-ui:     -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      background: var(--bg-base);
+      color: var(--text-main);
+      font-family: var(--font-ui);
+      font-size: 14px;
+    }
+
+    /* =====================================================
+       LAYOUT PRINCIPAL
+    ===================================================== */
+    .app {
+      display: grid;
+      grid-template-rows: 52px 1fr;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* HEADER */
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 20px;
+      background: var(--bg-panel);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-logo {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-head);
+      letter-spacing: -0.5px;
+    }
+
+    .header-logo span { color: var(--accent); }
+
+    .header-spacer { flex: 1; }
+
+    .header-info {
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+
+    /* MAIN SPLIT */
+    .main {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      overflow: hidden;
+      gap: 0;
+    }
+
+    /* =====================================================
+       PANEL IZQUIERDO — EDITOR
+    ===================================================== */
+    .editor-panel {
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .panel-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      background: var(--bg-panel);
+      border-bottom: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--text-dim);
+      flex-shrink: 0;
+    }
+
+    .panel-header strong { color: var(--text-head); }
+
+    #editor {
+      flex: 1;
+      background: var(--bg-input);
+      color: var(--text-main);
+      font-family: var(--font-code);
+      font-size: 13px;
+      line-height: 1.6;
+      padding: 16px;
+      border: none;
+      outline: none;
+      resize: none;
+      overflow: auto;
+      tab-size: 4;
+    }
+
+    #editor::placeholder { color: var(--text-dim); }
+
+    .editor-toolbar {
+      display: flex;
+      gap: 8px;
+      padding: 8px 14px;
+      background: var(--bg-panel);
+      border-top: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    /* =====================================================
+       BOTONES
+    ===================================================== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: var(--radius);
+      border: 1px solid transparent;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #0d1117;
+      border-color: var(--accent);
+    }
+    .btn-primary:hover { background: #79b8ff; }
+
+    .btn-success {
+      background: var(--green);
+      color: #0d1117;
+      border-color: var(--green);
+    }
+    .btn-success:hover { background: #56d364; }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text-main);
+      border-color: var(--border);
+    }
+    .btn-secondary:hover { background: var(--bg-tab); }
+
+    .btn-danger {
+      background: transparent;
+      color: var(--red);
+      border-color: var(--red);
+    }
+    .btn-danger:hover { background: rgba(248,81,73,0.15); }
+
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .btn-spacer { flex: 1; }
+
+    /* =====================================================
+       PANEL DERECHO — TABS + CONTENIDO
+    ===================================================== */
+    .output-panel {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      background: var(--bg-base);
+    }
+
+    .tabs-bar {
+      display: flex;
+      background: var(--bg-panel);
+      border-bottom: 1px solid var(--border);
+      overflow-x: auto;
+      flex-shrink: 0;
+    }
+
+    .tabs-bar::-webkit-scrollbar { height: 4px; }
+    .tabs-bar::-webkit-scrollbar-thumb { background: var(--border); }
+
+    .tab-btn {
+      padding: 10px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-dim);
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: color 0.15s, border-color 0.15s;
+    }
+
+    .tab-btn:hover { color: var(--text-main); }
+
+    .tab-btn.active {
+      color: var(--tab-active);
+      border-bottom-color: var(--tab-active);
+    }
+
+    .tab-content {
+      flex: 1;
+      overflow: auto;
+      padding: 0;
+    }
+
+    .tab-pane {
+      display: none;
+      height: 100%;
+      flex-direction: column;
+    }
+
+    .tab-pane.active {
+      display: flex;
+    }
+
+    /* =====================================================
+       CÓDIGO PREFORMATEADO
+    ===================================================== */
+    pre, .code-block {
+      font-family: var(--font-code);
+      font-size: 12px;
+      line-height: 1.6;
+      padding: 16px;
+      margin: 0;
+      color: var(--text-main);
+      white-space: pre;
+      overflow: auto;
+    }
+
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      color: var(--text-dim);
+      gap: 8px;
+    }
+
+    .empty-state .icon { font-size: 32px; }
+
+    /* =====================================================
+       TAB: FASES
+    ===================================================== */
+    .fases-list {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .fase-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 14px;
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      border-left: 3px solid var(--border);
+    }
+
+    .fase-item.ok   { border-left-color: var(--green); }
+    .fase-item.err  { border-left-color: var(--red);   }
+    .fase-item.skip { border-left-color: var(--text-dim); opacity: 0.6; }
+
+    .fase-icon { font-size: 16px; flex-shrink: 0; }
+
+    .fase-info { flex: 1; }
+
+    .fase-name {
+      font-weight: 600;
+      color: var(--text-head);
+      font-size: 13px;
+    }
+
+    .fase-time {
+      font-size: 11px;
+      color: var(--text-dim);
+      margin-top: 2px;
+    }
+
+    .fase-errors {
+      margin-top: 6px;
+      font-size: 12px;
+      color: var(--red);
+      font-family: var(--font-code);
+    }
+
+    .fase-badge {
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .badge-ok   { background: rgba(63,185,80,0.15); color: var(--green); }
+    .badge-err  { background: rgba(248,81,73,0.15); color: var(--red); }
+    .badge-skip { background: rgba(139,148,158,0.15); color: var(--text-dim); }
+
+    .stats-bar {
+      display: flex;
+      gap: 16px;
+      padding: 10px 16px;
+      background: var(--bg-panel);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      font-size: 12px;
+    }
+
+    .stat-item { color: var(--text-dim); }
+    .stat-item strong { color: var(--text-main); }
+
+    /* =====================================================
+       TAB: IR COMPARACIÓN — LADO A LADO
+    ===================================================== */
+    .ir-compare-wrapper {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .ir-compare-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .ir-col-header {
+      padding: 8px 14px;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .ir-col-header:first-child {
+      border-right: 1px solid var(--border);
+      background: rgba(88,166,255,0.05);
+      color: var(--accent);
+    }
+
+    .ir-col-header:last-child {
+      background: rgba(63,185,80,0.05);
+      color: var(--green);
+    }
+
+    .ir-col-stat {
+      margin-left: auto;
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--text-dim);
+      background: var(--bg-tab);
+      padding: 2px 8px;
+      border-radius: 10px;
+    }
+
+    .ir-compare-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .ir-col {
+      overflow: auto;
+      border-right: 1px solid var(--border);
+    }
+
+    .ir-col:last-child { border-right: none; }
+
+    /* =====================================================
+       TAB: IR MANUAL — PASSES
+    ===================================================== */
+    .manual-wrapper {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .passes-section {
+      padding: 12px 16px;
+      background: var(--bg-panel);
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .passes-section h3 {
+      font-size: 12px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+    }
+
+    .passes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .pass-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 7px;
+      padding: 6px 8px;
+      background: var(--bg-base);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-size: 12px;
+      transition: border-color 0.15s;
+    }
+
+    .pass-label:hover { border-color: var(--accent); }
+
+    .pass-label input[type="checkbox"] {
+      margin-top: 2px;
+      accent-color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .pass-label-text { line-height: 1.4; }
+    .pass-name { font-weight: 600; color: var(--text-head); display: block; }
+    .pass-desc { font-size: 10px; color: var(--text-dim); }
+
+    .manual-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .manual-status {
+      font-size: 12px;
+      color: var(--text-dim);
+      margin-left: 4px;
+    }
+
+    .manual-results {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .manual-col {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border-right: 1px solid var(--border);
+    }
+
+    .manual-col:last-child { border-right: none; }
+
+    .manual-col-header {
+      padding: 8px 14px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-dim);
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .manual-col pre { flex: 1; }
+
+    /* ── Diff coloring ── */
+    .diff-add  { background: rgba(63,185,80,0.12); color: #56d364; }
+    .diff-del  { background: rgba(248,81,73,0.12); color: #ff7b72; }
+    .diff-head { color: var(--orange); }
+
+    /* =====================================================
+       TAB: BINARIOS
+    ===================================================== */
+    .binarios-wrapper {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .bin-section {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+    }
+
+    .bin-section h3 {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-head);
+      margin-bottom: 12px;
+    }
+
+    .bin-options {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .bin-label {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .bin-label input { accent-color: var(--accent); }
+
+    .bin-result {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .bin-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      background: var(--bg-base);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 12px;
+    }
+
+    .bin-platform {
+      font-weight: 700;
+      width: 80px;
+      color: var(--text-head);
+    }
+
+    .bin-path {
+      flex: 1;
+      font-family: var(--font-code);
+      color: var(--accent);
+    }
+
+    .bin-status { font-size: 11px; }
+
+    /* =====================================================
+       TAB: CONSOLA / EJECUCIÓN
+    ===================================================== */
+    .console-output {
+      flex: 1;
+      padding: 16px;
+      font-family: var(--font-code);
+      font-size: 12px;
+      line-height: 1.8;
+      overflow: auto;
+      color: var(--text-main);
+    }
+
+    .console-line { display: block; }
+    .console-line.highlight { color: var(--accent); }
+
+    /* =====================================================
+       SPINNER / LOADING
+    ===================================================== */
+    .spinner {
+      display: none;
+      width: 14px;
+      height: 14px;
+      border: 2px solid rgba(255,255,255,0.2);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .loading .spinner { display: inline-block; }
+    .loading .btn-text { display: none; }
+
+    /* =====================================================
+       SCROLLBARS GLOBALES
+    ===================================================== */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--text-dim); }
+
+    /* =====================================================
+       RESPONSIVO
+    ===================================================== */
+    @media (max-width: 900px) {
+      .main { grid-template-columns: 1fr; grid-template-rows: 50vh 1fr; }
+      .editor-panel { border-right: none; border-bottom: 1px solid var(--border); }
+      .ir-compare-body { grid-template-columns: 1fr; grid-template-rows: 1fr 1fr; }
+      .ir-compare-header { grid-template-columns: 1fr; }
+      .manual-results { grid-template-columns: 1fr; grid-template-rows: 1fr 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+<div class="app">
+
+  <!-- ═══ HEADER ═══════════════════════════════════════════════ -->
+  <header class="header">
+    <div class="header-logo">⚙ Compilador <span>v4</span></div>
+    <div class="header-info">
+      Léxico → Sintáctico → Semántico → TAC → LLVM IR → Intérprete → O3 → Binarios
+    </div>
+    <div class="header-spacer"></div>
+    <div class="header-info" id="status-global">Listo</div>
+  </header>
+
+  <!-- ═══ MAIN SPLIT ═══════════════════════════════════════════ -->
+  <div class="main">
+
+    <!-- ─── PANEL IZQUIERDO: EDITOR ─────────────────────────── -->
+    <section class="editor-panel">
+      <div class="panel-header">
+        <strong>Código Fuente</strong>
+        <span>— gramatica_v4 (.src)</span>
+      </div>
+
+      <textarea
+        id="editor"
+        spellcheck="false"
+        placeholder="// Escribe o pega tu código aquí...&#10;program MiPrograma {&#10;    int x = 42;&#10;    print(x);&#10;}"
+      ></textarea>
+
+      <div class="editor-toolbar">
+        <button class="btn btn-primary" id="btn-compilar" onclick="compilar()">
+          <span class="spinner"></span>
+          <span class="btn-text">▶ Compilar</span>
+        </button>
+        <button class="btn btn-secondary" onclick="cargarEjemplo()">
+          📄 Ejemplo
+        </button>
+        <button class="btn btn-secondary" onclick="limpiar()">
+          🗑 Limpiar
+        </button>
+        <div class="btn-spacer"></div>
+        <span style="font-size:11px;color:var(--text-dim)">Ctrl+Enter</span>
+      </div>
+    </section>
+
+    <!-- ─── PANEL DERECHO: TABS ──────────────────────────────── -->
+    <section class="output-panel">
+
+      <!-- Barra de Tabs -->
+      <nav class="tabs-bar">
+        <button class="tab-btn active" onclick="cambiarTab('fases',this)">📋 Fases</button>
+        <button class="tab-btn" onclick="cambiarTab('tac',this)">🔢 TAC</button>
+        <button class="tab-btn" onclick="cambiarTab('ir-compare',this)">↔ IR Comparación</button>
+        <button class="tab-btn" onclick="cambiarTab('ir-manual',this)">🔧 IR Manual</button>
+        <button class="tab-btn" onclick="cambiarTab('consola',this)">💬 Consola</button>
+        <button class="tab-btn" onclick="cambiarTab('ejecucion',this)">▶ Ejecución IR</button>
+        <button class="tab-btn" onclick="cambiarTab('binarios',this)">📦 Binarios</button>
+      </nav>
+
+      <!-- Contenido de Tabs -->
+      <div class="tab-content">
+
+        <!-- ── TAB: FASES ────────────────────────────────── -->
+        <div class="tab-pane active" id="pane-fases">
+          <div id="fases-content" class="fases-list">
+            <div class="empty-state">
+              <div class="icon">📋</div>
+              <span>Compila tu código para ver las fases</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── TAB: TAC ──────────────────────────────────── -->
+        <div class="tab-pane" id="pane-tac">
+          <pre id="tac-content" class="code-block" style="flex:1;overflow:auto">
+<div class="empty-state"><div class="icon">🔢</div><span>Sin TAC generado aún</span></div>
+          </pre>
+        </div>
+
+        <!-- ── TAB: IR COMPARACIÓN (LADO A LADO) ─────────── -->
+        <div class="tab-pane" id="pane-ir-compare">
+          <div class="ir-compare-wrapper">
+            <div class="ir-compare-header">
+              <div class="ir-col-header">
+                📄 IR Original
+                <span class="ir-col-stat" id="stat-orig">—</span>
+              </div>
+              <div class="ir-col-header">
+                ✨ IR Optimizado (O3)
+                <span class="ir-col-stat" id="stat-opt">—</span>
+              </div>
+            </div>
+            <div class="ir-compare-body">
+              <div class="ir-col">
+                <pre id="ir-orig-content" class="code-block" style="min-height:100%">
+<div class="empty-state"><div class="icon">📄</div><span>Sin IR generado</span></div>
+                </pre>
+              </div>
+              <div class="ir-col">
+                <pre id="ir-opt-content" class="code-block" style="min-height:100%">
+<div class="empty-state"><div class="icon">✨</div><span>Sin IR optimizado</span></div>
+                </pre>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── TAB: IR MANUAL ────────────────────────────── -->
+        <div class="tab-pane" id="pane-ir-manual">
+          <div class="manual-wrapper">
+            <div class="passes-section">
+              <h3>Selecciona los passes a aplicar</h3>
+              <div class="passes-grid" id="passes-grid">
+                <!-- Se genera dinámicamente -->
+              </div>
+              <div class="manual-actions">
+                <button class="btn btn-success" id="btn-manual" onclick="aplicarManual()">
+                  <span class="spinner"></span>
+                  <span class="btn-text">⚡ Aplicar Passes</span>
+                </button>
+                <button class="btn btn-secondary" onclick="selTodosManual()">Selec. Todos</button>
+                <button class="btn btn-secondary" onclick="deselTodosManual()">Ninguno</button>
+                <span class="manual-status" id="manual-status"></span>
+              </div>
+            </div>
+            <div class="manual-results">
+              <div class="manual-col">
+                <div class="manual-col-header">IR Resultante</div>
+                <pre id="manual-ir-content" class="code-block" style="flex:1;overflow:auto">
+<div class="empty-state"><div class="icon">⚡</div><span>Aplica passes para ver resultado</span></div>
+                </pre>
+              </div>
+              <div class="manual-col">
+                <div class="manual-col-header">Diff (Original → Manual)</div>
+                <pre id="manual-diff-content" class="code-block" style="flex:1;overflow:auto">
+<div class="empty-state"><div class="icon">±</div><span>Sin cambios aún</span></div>
+                </pre>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── TAB: CONSOLA ──────────────────────────────── -->
+        <div class="tab-pane" id="pane-consola">
+          <div id="consola-content" class="console-output">
+            <div class="empty-state">
+              <div class="icon">💬</div>
+              <span>Sin salida del intérprete</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── TAB: EJECUCIÓN IR ─────────────────────────── -->
+        <div class="tab-pane" id="pane-ejecucion">
+          <div id="ejecucion-content" class="console-output">
+            <div class="empty-state">
+              <div class="icon">▶</div>
+              <span>Sin salida de lli</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── TAB: BINARIOS ─────────────────────────────── -->
+        <div class="tab-pane" id="pane-binarios">
+          <div class="binarios-wrapper">
+            <div class="bin-section">
+              <h3>🖥 Plataformas de destino</h3>
+              <div class="bin-options">
+                <label class="bin-label">
+                  <input type="checkbox" id="chk-linux" checked />
+                  🐧 Linux (.elf)
+                </label>
+                <label class="bin-label">
+                  <input type="checkbox" id="chk-windows" />
+                  🪟 Windows (.exe) — requiere MinGW
+                </label>
+              </div>
+              <div style="display:flex;gap:8px;align-items:center">
+                <button class="btn btn-success" id="btn-binarios" onclick="generarBinarios()">
+                  <span class="spinner"></span>
+                  <span class="btn-text">📦 Generar Binarios</span>
+                </button>
+                <span style="font-size:11px;color:var(--text-dim)">
+                  Usa el IR Optimizado (O3) o el IR Original si O3 no está disponible
+                </span>
+              </div>
+            </div>
+
+            <div class="bin-section">
+              <h3>📂 Binarios generados</h3>
+              <div class="bin-result" id="bin-result">
+                <div class="empty-state" style="padding:20px 0">
+                  <div class="icon">📦</div>
+                  <span>Genera binarios para ver los archivos aquí</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="bin-section" style="border-color:var(--yellow);background:rgba(210,153,34,0.05)">
+              <h3 style="color:var(--orange)">⚠ Prerrequisitos</h3>
+              <div style="font-size:12px;color:var(--text-dim);line-height:1.8">
+                <div>• <strong style="color:var(--text-main)">llc</strong> — <code style="color:var(--accent)">sudo apt install llvm</code></div>
+                <div>• <strong style="color:var(--text-main)">clang</strong> — <code style="color:var(--accent)">sudo apt install clang</code></div>
+                <div>• <strong style="color:var(--text-main)">MinGW (Windows)</strong> — <code style="color:var(--accent)">sudo apt install mingw-w64</code></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /tab-content -->
+    </section><!-- /output-panel -->
+
+  </div><!-- /main -->
+</div><!-- /app -->
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     JAVASCRIPT
+═══════════════════════════════════════════════════════════ -->
+<script>
+/* ─────────────────────────────────────────────────────────────
+   ESTADO GLOBAL
+───────────────────────────────────────────────────────────── */
+const state = {
+  irOriginal:  "",
+  irOptimizado: "",
+  compilado:   false,
+};
+
+/* ─────────────────────────────────────────────────────────────
+   INICIALIZACIÓN
+───────────────────────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+  cargarPasses();
+  // Ctrl+Enter para compilar
+  document.getElementById('editor').addEventListener('keydown', e => {
+    if (e.ctrlKey && e.key === 'Enter') { e.preventDefault(); compilar(); }
+  });
+});
+
+/* ─────────────────────────────────────────────────────────────
+   TABS
+───────────────────────────────────────────────────────────── */
+function cambiarTab(id, btn) {
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('pane-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+/* ─────────────────────────────────────────────────────────────
+   COMPILAR — Pipeline completo
+───────────────────────────────────────────────────────────── */
+async function compilar() {
+  const codigo = document.getElementById('editor').value.trim();
+  if (!codigo) { alerta('El editor está vacío.'); return; }
+
+  setLoading('btn-compilar', true);
+  setStatus('Compilando...');
+
+  try {
+    const res = await fetch('/compilar', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ codigo, generar_binarios: false })
+    });
+    const data = await res.json();
+    renderResultados(data);
+    state.compilado = true;
+    setStatus(data.ok ? '✓ Compilación exitosa' : '✗ Con errores');
+  } catch (err) {
+    setStatus('✗ Error de red: ' + err.message);
+  } finally {
+    setLoading('btn-compilar', false);
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   RENDER RESULTADOS
+───────────────────────────────────────────────────────────── */
+function renderResultados(data) {
+  renderFases(data.fases || []);
+  renderTAC(data.tac || '');
+  renderIRCompare(data.ir || '', data.ir_opt || '', data.stats_orig, data.stats_opt);
+  renderConsola(data.consola || []);
+  renderEjecucion(data.ir_out || []);
+
+  // Guardar IRs para uso posterior (IR Manual, Binarios)
+  state.irOriginal   = data.ir   || '';
+  state.irOptimizado = data.ir_opt || '';
+}
+
+/* ── Fases ── */
+function renderFases(fases) {
+  const iconos = { OK: '✓', ERROR: '✗', SKIP: '○' };
+  const clases = { OK: 'ok', ERROR: 'err', SKIP: 'skip' };
+  const badges = { OK: 'badge-ok', ERROR: 'badge-err', SKIP: 'badge-skip' };
+
+  if (!fases.length) return;
+
+  const html = fases.map((f, i) => `
+    <div class="fase-item ${clases[f.estado] || ''}">
+      <div class="fase-icon">${iconos[f.estado] || '?'}</div>
+      <div class="fase-info">
+        <div class="fase-name">Fase ${i+1} — ${escHtml(f.nombre)}</div>
+        <div class="fase-time">${f.tiempo_ms.toFixed(2)} ms</div>
+        ${f.errores && f.errores.length
+          ? `<div class="fase-errors">${f.errores.map(escHtml).join('<br>')}</div>`
+          : ''}
+      </div>
+      <span class="fase-badge ${badges[f.estado] || ''}">${f.estado}</span>
+    </div>
+  `).join('');
+
+  document.getElementById('fases-content').innerHTML = html;
+}
+
+/* ── TAC ── */
+function renderTAC(tac) {
+  const el = document.getElementById('tac-content');
+  el.textContent = tac || '';
+  if (!tac) el.innerHTML = '<div class="empty-state"><div class="icon">🔢</div><span>Sin TAC generado</span></div>';
+}
+
+/* ── IR Comparación lado a lado ── */
+function renderIRCompare(irOrig, irOpt, statsOrig, statsOpt) {
+  const elOrig = document.getElementById('ir-orig-content');
+  const elOpt  = document.getElementById('ir-opt-content');
+  const elStatOrig = document.getElementById('stat-orig');
+  const elStatOpt  = document.getElementById('stat-opt');
+
+  if (irOrig) {
+    elOrig.textContent = irOrig;
+    if (statsOrig && statsOrig.instrucciones !== undefined) {
+      elStatOrig.textContent = `${statsOrig.instrucciones} instrs / ${statsOrig.bloques} bloques`;
+    }
+  } else {
+    elOrig.innerHTML = '<div class="empty-state"><div class="icon">📄</div><span>Sin IR generado</span></div>';
+  }
+
+  if (irOpt) {
+    elOpt.textContent = irOpt;
+    if (statsOpt && statsOpt.instrucciones !== undefined) {
+      const diff = statsOrig ? statsOrig.instrucciones - statsOpt.instrucciones : 0;
+      const signo = diff >= 0 ? '-' : '+';
+      elStatOpt.textContent = `${statsOpt.instrucciones} instrs / ${statsOpt.bloques} bloques (${signo}${Math.abs(diff)})`;
+    }
+  } else {
+    elOpt.innerHTML = '<div class="empty-state"><div class="icon">✨</div><span>Sin IR optimizado</span></div>';
+  }
+}
+
+/* ── Consola ── */
+function renderConsola(lineas) {
+  const el = document.getElementById('consola-content');
+  if (!lineas.length) {
+    el.innerHTML = '<div class="empty-state"><div class="icon">💬</div><span>Sin salida del intérprete</span></div>';
+    return;
+  }
+  el.innerHTML = lineas.map(l =>
+    `<span class="console-line">${escHtml(l)}</span>`
+  ).join('');
+}
+
+/* ── Ejecución IR ── */
+function renderEjecucion(lineas) {
+  const el = document.getElementById('ejecucion-content');
+  if (!lineas.length) {
+    el.innerHTML = '<div class="empty-state"><div class="icon">▶</div><span>Sin salida de lli</span></div>';
+    return;
+  }
+  el.innerHTML = lineas.map(l =>
+    `<span class="console-line ${l.startsWith('[') ? 'highlight' : ''}">${escHtml(l)}</span>`
+  ).join('');
+}
+
+/* ─────────────────────────────────────────────────────────────
+   IR MANUAL — Carga de passes y aplicación
+───────────────────────────────────────────────────────────── */
+async function cargarPasses() {
+  try {
+    const res = await fetch('/passes');
+    const passes = await res.json();
+    const grid = document.getElementById('passes-grid');
+    grid.innerHTML = passes.map(p => `
+      <label class="pass-label">
+        <input type="checkbox" name="pass" value="${p.key}" />
+        <div class="pass-label-text">
+          <span class="pass-name">${escHtml(p.key)}</span>
+          <span class="pass-desc">${escHtml(p.descripcion.substring(0, 60))}…</span>
+        </div>
+      </label>
+    `).join('');
+  } catch (e) {
+    document.getElementById('passes-grid').textContent = 'Error cargando passes.';
+  }
+}
+
+async function aplicarManual() {
+  if (!state.irOriginal) {
+    document.getElementById('manual-status').textContent = '⚠ Compila primero para tener un IR.';
+    return;
+  }
+
+  const checks = document.querySelectorAll('input[name="pass"]:checked');
+  const passes  = Array.from(checks).map(c => c.value);
+
+  if (!passes.length) {
+    document.getElementById('manual-status').textContent = '⚠ Selecciona al menos un pass.';
+    return;
+  }
+
+  setLoading('btn-manual', true);
+  document.getElementById('manual-status').textContent = 'Aplicando…';
+
+  try {
+    const res = await fetch('/optimizar_manual', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ir: state.irOriginal, passes })
+    });
+    const data = await res.json();
+
+    const elIR   = document.getElementById('manual-ir-content');
+    const elDiff = document.getElementById('manual-diff-content');
+
+    if (data.ok) {
+      elIR.textContent = data.ir_opt || '';
+      renderDiff(elDiff, data.diff || '');
+      document.getElementById('manual-status').textContent =
+        `✓ ${data.passes_aplicados.join(', ')} — ${data.tiempo_ms} ms`;
+    } else {
+      elIR.textContent = '⚠ Error: ' + (data.error || 'desconocido');
+      elDiff.innerHTML = '<div class="empty-state"><div class="icon">✗</div><span>Error al aplicar passes</span></div>';
+      document.getElementById('manual-status').textContent = '✗ Error';
+    }
+  } catch (err) {
+    document.getElementById('manual-status').textContent = '✗ Error de red.';
+  } finally {
+    setLoading('btn-manual', false);
+  }
+}
+
+function renderDiff(el, diff) {
+  if (!diff.trim()) {
+    el.innerHTML = '<div class="empty-state"><div class="icon">✓</div><span>Sin cambios (IR idéntico)</span></div>';
+    return;
+  }
+  const html = diff.split('\n').map(line => {
+    if (line.startsWith('+++') || line.startsWith('---')) {
+      return `<span class="diff-head">${escHtml(line)}</span>`;
+    } else if (line.startsWith('+')) {
+      return `<span class="diff-add">${escHtml(line)}</span>`;
+    } else if (line.startsWith('-')) {
+      return `<span class="diff-del">${escHtml(line)}</span>`;
+    } else if (line.startsWith('@@')) {
+      return `<span class="diff-head">${escHtml(line)}</span>`;
+    }
+    return `<span>${escHtml(line)}</span>`;
+  }).join('\n');
+  el.innerHTML = html;
+}
+
+function selTodosManual() {
+  document.querySelectorAll('input[name="pass"]').forEach(c => c.checked = true);
+}
+
+function deselTodosManual() {
+  document.querySelectorAll('input[name="pass"]').forEach(c => c.checked = false);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   GENERAR BINARIOS
+───────────────────────────────────────────────────────────── */
+async function generarBinarios() {
+  const irDisponible = state.irOptimizado || state.irOriginal;
+  if (!irDisponible) {
+    alerta('Compila primero para generar el IR.');
+    return;
+  }
+
+  const plataformas = [];
+  if (document.getElementById('chk-linux').checked)   plataformas.push('linux');
+  if (document.getElementById('chk-windows').checked) plataformas.push('windows');
+
+  if (!plataformas.length) {
+    alerta('Selecciona al menos una plataforma.');
+    return;
+  }
+
+  setLoading('btn-binarios', true);
+
+  try {
+    const res = await fetch('/generar_binario', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ir: irDisponible, plataformas })
+    });
+    const data = await res.json();
+    renderBinarios(data);
+  } catch (err) {
+    alerta('Error de red: ' + err.message);
+  } finally {
+    setLoading('btn-binarios', false);
+  }
+}
+
+function renderBinarios(data) {
+  const el = document.getElementById('bin-result');
+  const items = [];
+
+  for (const [plat, archivo] of Object.entries(data.binarios || {})) {
+    const ok = !!archivo;
+    const icono = plat === 'linux' ? '🐧' : '🪟';
+    const descarga = ok
+      ? `<a href="/descargar/${archivo}" class="btn btn-secondary" style="padding:3px 10px;font-size:11px">⬇ Descargar</a>`
+      : '';
+    items.push(`
+      <div class="bin-item">
+        <div class="bin-platform">${icono} ${plat}</div>
+        <div class="bin-path">${ok ? escHtml(archivo) : '—'}</div>
+        <div class="bin-status" style="color:${ok ? 'var(--green)' : 'var(--red)'}">
+          ${ok ? '✓ Generado' : '✗ Falló'}
+        </div>
+        ${descarga}
+      </div>
+    `);
+  }
+
+  if (data.errores && data.errores.length) {
+    items.push(`<div style="color:var(--red);font-size:12px;padding:6px 0">
+      ${data.errores.map(escHtml).join('<br>')}
+    </div>`);
+  }
+
+  el.innerHTML = items.join('') || '<div class="empty-state"><div class="icon">✗</div><span>Sin binarios generados</span></div>';
+}
+
+/* ─────────────────────────────────────────────────────────────
+   EJEMPLO
+───────────────────────────────────────────────────────────── */
+function cargarEjemplo() {
+  document.getElementById('editor').value = `// Ejemplo v4: switch, ternario, cast, struct
+program EjemploV4 {
+
+    // Struct
+    struct Punto {
+        int x;
+        int y;
+    }
+
+    // Función con ternario
+    int maximo(int a, int b) {
+        return a > b ? a : b;
+    }
+
+    // Código principal
+    int n = 3;
+    int resultado = 0;
+
+    switch(n) {
+        case 1: resultado = 100; break;
+        case 2: resultado = 200; break;
+        case 3: resultado = 300; break;
+        default: resultado = -1;
+    }
+    print(resultado);
+
+    // Cast explícito
+    float f = (float) n;
+    print(f);
+
+    // Struct
+    Punto p;
+    p.x = maximo(10, 20);
+    p.y = (int) 3.14;
+    print(p.x);
+    print(p.y);
+}`;
+}
+
+function limpiar() {
+  document.getElementById('editor').value = '';
+  state.irOriginal   = '';
+  state.irOptimizado = '';
+  state.compilado    = false;
+  document.getElementById('fases-content').innerHTML =
+    '<div class="empty-state"><div class="icon">📋</div><span>Compila tu código para ver las fases</span></div>';
+}
+
+/* ─────────────────────────────────────────────────────────────
+   HELPERS
+───────────────────────────────────────────────────────────── */
+function escHtml(s) {
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function setStatus(msg) {
+  document.getElementById('status-global').textContent = msg;
+}
+
+function setLoading(btnId, loading) {
+  const btn = document.getElementById(btnId);
+  if (!btn) return;
+  if (loading) btn.classList.add('loading');
+  else btn.classList.remove('loading');
+  btn.disabled = loading;
+}
+
+function alerta(msg) {
+  // Simple alerta en el status bar (no alert() nativo)
+  setStatus('⚠ ' + msg);
+  setTimeout(() => setStatus('Listo'), 3000);
+}
+</script>
+</body>
+</html>
