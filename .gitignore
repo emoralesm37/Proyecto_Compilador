@@ -22,3 +22,13 @@ __pycache__/
 # Sistema operativo
 .DS_Store
 Thumbs.db
+
+# Logs
+*.log
+
+# Cache llvmlite
+.cache/
+
+# Temporales
+tmp/
+temp/
